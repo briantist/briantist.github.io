@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>Get Progress on DFS Replication Database Cloning Import</title>
+	
+	
+	<meta name="description" content="How to show progress of Import-DfsrDatabase cloning process.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Get Progress on DFS Replication Database Cloning Import </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2014-04-04T16:42:05-04:00"><i class="fa fa-calendar"></i>
+		April 04, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0ad50611-7997-475c-9600-77136b83dc34" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p>As I wrote in a <a href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/">previous post</a>, I began using the new DFS Replication database cloning technique to speed up initial sync. Thanks to <a href="http://blogs.technet.com/b/filecab/archive/2013/08/21/dfs-replication-initial-sync-in-windows-server-2012-r2-attack-of-the-clones.aspx" target="_blank">Ned Pyle’s great How-To on the subject</a>, I was able to tell exactly which events to look for in the event log to get an idea of progress: <code>2412</code> for the start of the process, <code>2416</code> for progress, <code>2404</code> for successful finish, and <code>2418</code> for an unsuccessful end (found that one out on my own, whoops!).</p>
+
+<p>Since I clearly had a few hours to kill while the import happened, I wrote up a quick script to show the progress, with estimated time remaining.</p>
+
+<a name="more"></a>
+
+<h2 id="script-details">Script Details</h2>
+
+<p>This is a quick-and-dirty powershell script with no fancy CmdletBinding or any parameters at all, and no comments, and barely any testing so use at your own risk, etc.</p>
+
+<p>The basic idea is that it keeps checking the event log (I’m doing it every 5 seconds), looking for new progress events, and it uses <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Write-Progress</span></code> to display some pretty stats. When the event <code>2404</code> indicates a successful completion or <code>2418</code> indicates an error, it should end the script or raise an exception, respectively.</p>
+
+<p>In the meantime, you’ll just see the progress:</p>
+
+<p><a href="/images/post/get-progress-dfs-replication-database-cloning-import/DFSR-Import-Progress.png" rel="lightbox" title="DFSR Import Progress"><img src="/images/post/get-progress-dfs-replication-database-cloning-import/DFSR-Import-Progress.png" alt="DFSR-Import-Progress" /></a></p>
+
+<p>The progress bar is only updated when a new event is logged, so you won’t see continuously changing numbers. It’s more of a thing you leave running in the background and check on every now and then.</p>
+
+<p>Oh and it doesn’t have to be run on the machine doing the import, so it can be run from a management server or desktop client to keep tabs on the progress. Since it uses events in the event log on the destination computer, stopping and restarting the script will still give you consistent progress.</p>
+
+<h2 id="the-full-script">The Full Script</h2>
+
+<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$importComputer</span> <span class="p">=</span> <span class="s1">&#39;ComputerName&#39;</span>
+
+<span class="nv">$clonestart</span> <span class="p">=</span> <span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="p">@{</span><span class="n">LogName</span><span class="p">=</span><span class="s1">&#39;DFS Replication&#39;</span><span class="p">;</span><span class="n">ID</span><span class="p">=</span><span class="n">2412</span><span class="p">}</span> <span class="n">-ComputerName</span> <span class="nv">$importComputer</span> <span class="n">-MaxEvents</span> <span class="n">1</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+<span class="nv">$start</span> <span class="p">=</span> <span class="nv">$null</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$clonestart</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$start</span> <span class="p">=</span> <span class="nv">$clonestart</span><span class="p">.</span><span class="n">TimeCreated</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="s2">&quot;No clone event found.&quot;</span>
+<span class="p">}</span>
+
+<span class="nv">$progtime</span> <span class="p">=</span> <span class="nv">$start</span>
+
+<span class="k">for</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$cloneend</span> <span class="p">=</span> <span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="p">@{</span><span class="n">LogName</span><span class="p">=</span><span class="s1">&#39;DFS Replication&#39;</span><span class="p">;</span><span class="n">ID</span><span class="p">=</span><span class="n">2404</span><span class="p">}</span> <span class="n">-ComputerName</span> <span class="nv">$importComputer</span> <span class="n">-MaxEvents</span> <span class="n">1</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$cloneend</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$cloneend</span><span class="p">.</span><span class="n">TimeCreated</span> <span class="o">-gt</span> <span class="nv">$start</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c"># Clone import successfully finished.</span>
+            <span class="nb">Write-Progress</span> <span class="n">-Activity</span> <span class="s1">&#39;Importing DFSr Database&#39;</span> <span class="n">-Completed</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nv">$cloneerr</span> <span class="p">=</span> <span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="p">@{</span><span class="n">LogName</span><span class="p">=</span><span class="s1">&#39;DFS Replication&#39;</span><span class="p">;</span><span class="n">ID</span><span class="p">=</span><span class="n">2414</span><span class="p">}</span> <span class="n">-ComputerName</span> <span class="nv">$importComputer</span> <span class="n">-MaxEvents</span> <span class="n">1</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$cloneerr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$cloneerr</span><span class="p">.</span><span class="n">TimeCreated</span> <span class="o">-gt</span> <span class="nv">$start</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="s2">&quot;Clone import error:\n$cloneerr&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nv">$cloneprog</span> <span class="p">=</span> <span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="p">@{</span><span class="n">LogName</span><span class="p">=</span><span class="s1">&#39;DFS Replication&#39;</span><span class="p">;</span><span class="n">ID</span><span class="p">=</span><span class="n">2416</span><span class="p">}</span> <span class="n">-ComputerName</span> <span class="nv">$importComputer</span> <span class="n">-MaxEvents</span> <span class="n">1</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$cloneprog</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$cloneprog</span><span class="p">.</span><span class="n">TimeCreated</span> <span class="o">-gt</span> <span class="nv">$progtime</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$progtime</span> <span class="p">=</span> <span class="nv">$cloneprog</span><span class="p">.</span><span class="n">TimeCreated</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$cloneprog</span><span class="p">.</span><span class="n">Message</span> <span class="o">-imatch</span> <span class="s1">&#39;(?s)Processed:(\d+).*?Remaining:(\d+)&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$processed</span> <span class="p">=</span> <span class="no">[Int64]</span><span class="p">::</span><span class="n">Parse</span><span class="p">(</span><span class="nv">$Matches</span><span class="p">[</span><span class="n">1</span><span class="p">])</span>
+                <span class="nv">$remaining</span> <span class="p">=</span> <span class="no">[Int64]</span><span class="p">::</span><span class="n">Parse</span><span class="p">(</span><span class="nv">$Matches</span><span class="p">[</span><span class="n">2</span><span class="p">])</span>
+                <span class="nv">$total</span> <span class="p">=</span> <span class="nv">$processed</span> <span class="p">+</span> <span class="nv">$remaining</span>
+                <span class="nv">$percentage</span> <span class="p">=</span> <span class="p">((</span><span class="nv">$processed</span><span class="p">*</span><span class="n">100</span><span class="p">.</span><span class="n">0</span><span class="p">)/</span><span class="nv">$total</span><span class="p">)</span>
+                <span class="nv">$elapsed</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$progtime</span> <span class="p">-</span> <span class="nv">$start</span><span class="p">).</span><span class="n">TotalSeconds</span>
+                <span class="nv">$secrem</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$elapsed</span><span class="p">*(</span><span class="n">100</span><span class="p">.</span><span class="n">0</span><span class="p">/</span><span class="nv">$percentage</span><span class="p">))</span> <span class="p">-</span> <span class="nv">$elapsed</span>
+                <span class="nv">$submessage</span> <span class="p">=</span> <span class="s2">&quot;</span><span class="p">$(</span><span class="s2">&quot;{0:N0}&quot;</span> <span class="o">-f</span> <span class="nv">$processed</span><span class="p">)</span><span class="s2"> records of </span><span class="p">$(</span><span class="s2">&quot;{0:N0}&quot;</span> <span class="o">-f</span> <span class="nv">$total</span><span class="p">)</span><span class="s2"> (</span><span class="p">$(</span><span class="s2">&quot;{0:N0}&quot;</span> <span class="o">-f</span> <span class="nv">$remaining</span><span class="p">)</span><span class="s2"> remaining) - </span><span class="p">$(</span><span class="s2">&quot;{0:N2}&quot;</span> <span class="o">-f</span> <span class="nv">$percentage</span><span class="p">)</span><span class="s2">% :: Last Update: $progtime, </span><span class="p">$((</span><span class="nv">$progtime</span> <span class="p">-</span> <span class="nv">$start</span><span class="p">))</span><span class="s2"> elapsed&quot;</span>
+                <span class="nb">Write-Progress</span> <span class="n">-Activity</span> <span class="s1">&#39;Importing DFSr Database&#39;</span> <span class="n">-Status</span> <span class="nv">$submessage</span> <span class="n">-PercentComplete</span> <span class="nv">$percentage</span> <span class="n">-SecondsRemaining</span> <span class="nv">$secrem</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">5</span>
+<span class="p">}</span></code></pre></div>
+
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/dfsr/">
+					dfsr <span>(2)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/powershell/">
+					powershell <span>(10)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Get Progress on DFS Replication Database Cloning Import&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/" title="DFSR Database Cloning Import Fails - 0x00001129 - Error 4393 - The tag present in the reparse point buffer is invalid">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/" title="Get-DnsServerResourceRecord returns duplicate records when a sub-domain matching the zone exists">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = '0ad50611-7997-475c-9600-77136b83dc34';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

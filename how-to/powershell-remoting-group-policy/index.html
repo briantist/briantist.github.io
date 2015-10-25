@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>How To Enable Powershell Remoting via Group Policy</title>
+	
+	
+	<meta name="description" content="How to use group policy to enable powershell remoting on all supported operating systems, including Windows XP and Windows 2003.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Enable Powershell Remoting via Group Policy </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2012-09-16T22:29:44-04:00"><i class="fa fa-calendar"></i>
+		September 16, 2012
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="ebe8b75d-56f2-4ae4-82df-1fbd4fb5ffdb" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p>Powershell really is a game changer when it comes management and scripting on Windows, but one of the areas where it really shines is in its remoting capability. Powershell remoting lets you connect to a remote system and run commands locally, then returns the results to the calling machine. This can be done as an automated block or as an interactive session.</p>
+
+<p>Remoting requires Powershell 2.0 which comes built-in on Windows 7 and Windows 2008 R2, but it needs to be installed on Windows Vista / Server 2008 and below. The WinRM service will also have to be configured and enabled.</p>
+
+<p>I’ll show you how to accomplish this with group policy for the range of operating systems that can run it.</p>
+
+<p><strong>Update 2013/02/20:</strong> I have confirmed that this method is working on Server 2012 (core and GUI) as well.</p>
+
+<p><strong>Update 2013/05/07:</strong> With the help of Jacob in the comments below, I was able to fix a problem in the VB Script. Since Powershell requires the .NET framework, this whole process will fail on Windows 2003 / XP if .NET is not installed. The VB Script now installs .NET as part of the process. The <a href="https://gist.github.com/briantist/3734447">GitHub Gist</a> has been updated. Thanks Jacob!</p>
+
+<p><strong>Update 2013/10/09:</strong> Updated the name of the WinRM policy setting based on user comments. Thanks to Micahel M. of Miller Computers and Giorgi Gordeziani.</p>
+
+<a name="more"></a>
+
+<h2 id="the-policy-split">The Policy Split</h2>
+
+<p>We basically have three operating system “classes” to deal with here:</p>
+
+<ul>
+  <li>
+    <p>Windows 7 / Windows 2008 R2 (and newer)</p>
+  </li>
+  <li>
+    <p>Windows Vista / Windows 2008</p>
+  </li>
+  <li>
+    <p>Windows XP / Windows 2003</p>
+  </li>
+</ul>
+
+<p>The requirements for each are as follows:</p>
+
+<h4 id="windows-7--2008-r2">Windows 7 / 2008 R2+</h4>
+
+<ul>
+  <li>
+    <p>Needs WinRM enabled / configured.</p>
+  </li>
+  <li>
+    <p>Needs firewall rules.</p>
+  </li>
+  <li>
+    <p>Needs service configuration.</p>
+  </li>
+</ul>
+
+<h4 id="windows-vista--2008">Windows Vista / 2008</h4>
+
+<ul>
+  <li>
+    <p>Needs everything above.</p>
+  </li>
+  <li>
+    <p>Needs Powershell 2.0 installed.</p>
+  </li>
+</ul>
+
+<h4 id="windows-xp--2003">Windows XP / 2003</h4>
+
+<ul>
+  <li>
+    <p>Needs everything above.</p>
+  </li>
+  <li>
+    <p>Needs .NET framework.</p>
+  </li>
+  <li>
+    <p><strong>Cannot directly configure WinRM with Group Policy.</strong></p>
+  </li>
+</ul>
+
+<p>What does that last bolded bullet mean? There are already administrative templates for enabling and managing WinRM, but they only work on Vista clients and later, so our XP and 2003 machines are out of luck there. Vista and 2008 are covered by that, but they don’t have Powershell 2.0 installed by default. Windows XP and 2003 don’t have .NET framework by default either.</p>
+
+<p>In my environments I’ve chosen to do this with two policies. The first policy uses the administrative templates to enable WinRM, and it sets a few additional policies for Windows firewall rules and WinRM service parameters which will apply to all of the OS classes. The second policy is filtered with WMI to only apply to Vista / 2008 machines and lower, and it consists solely of a startup script which installs Powershell 2.0 and .NET framework (as needed) and enables WinRM.</p>
+
+<h2 id="the-enable-powershell-remoting-policy">The <code>Enable Powershell Remoting</code> Policy</h2>
+
+<p>This is the first policy described above. If you are lucky enough to have no machines in your environment below Windows 7 / 2008 R2 then <strong>this is the only one you need</strong>. All of the settings we are using will be in <code>Computer Configuration</code> so if you want to disable User Configuration as I have go ahead.</p>
+
+<ol>
+  <li>Create your GPO, name it what you want, place it where you want, etc.</li>
+  <li>Edit your policy.</li>
+</ol>
+
+<h3 id="enabling-winrm">Enabling WinRM</h3>
+
+<ol>
+  <li>Browse to <code>Policies &gt; Administrative Templates &gt; Windows Components &gt; Windows Remote Management (WinRM) &gt; WinRM Service</code></li>
+  <li>Depending on your operating system: <br />
+<strong>Server 2008 R2 and later</strong>: Open the <code>Allow Remote Server management through WinRM</code> policy setting.<br />
+<strong>Server 2008 and earlier</strong>: Open the “Allow automatic configuration of listeners” policy setting.</li>
+  <li>Set the Policy to <code>Enabled</code>.</li>
+  <li>Set the <strong>IPv4</strong> and <strong>IPv6</strong> filters to <code>*</code> unless you need something specific there (check out the help on the right).</li>
+</ol>
+
+<h3 id="setting-the-firewall-rules">Setting the Firewall Rules</h3>
+
+<ol>
+  <li>Browse to <code>Policies &gt; Administrative Templates &gt; Network &gt; Network Connections &gt; Windows Firewall &gt; Domain Profile</code></li>
+  <li>Open the <code>Windows Firewall: Define inbound port exceptions</code> policy setting.</li>
+  <li>Set it to <code>Enabled</code> if it isn’t already.</li>
+  <li>
+    <p>Click the <strong>Show…</strong> button and add the port exception. We’re going to be opening TCP port 5985, so the exception string will look something like this:</p>
+
+    <pre><code>5985:TCP:*:enabled:WSMan
+</code></pre>
+  </li>
+</ol>
+
+<h4 id="if-windows-xp-and-2003-are-not-a-concern">If Windows XP and 2003 are not a concern:</h4>
+
+<p>You can use the newer <strong>Firewall with Advanced Features policy</strong> to configure the rule instead, but this will only work on Vista and above. Additionally, you should configure this from a Windows 7 / 2008 R2 machine because of a difference in the pre-defined rule.</p>
+
+<ol>
+  <li>Browse to <code>Policies &gt; Windows Settings &gt; Security Settings &gt; Windows Firewall with Advanced Security &gt; Windows Firewall… &gt; Inbound Rules</code></li>
+  <li>Right click and choose <strong>New Rule…</strong></li>
+  <li>Choose the <code>Windows Remote Management</code> pre-defined rule.</li>
+  <li>When you click next you should see the two rules that will be added.</li>
+  <li>Click next, choose to <code>Allow</code> the connection, and then <strong>Finish</strong>.</li>
+</ol>
+
+<h3 id="service-configuration">Service Configuration</h3>
+
+<p>At this point we have enough in place to get this working, but I like to do a few more things to ensure that the WinRM service is configured to start automatically and to restart on failure.</p>
+
+<ol>
+  <li>Browse to <code>Policies &gt; Windows Settings &gt; Security Settings &gt; System Services</code></li>
+  <li>Find the <code>Windows Remote Management (WS-Management)</code> service.</li>
+  <li>Define the policy and give it a startup mode of <code>Automatic</code>.</li>
+  <li>Browse to <code>Preferences &gt; Control Panel Settings &gt; Services</code></li>
+  <li>Create a new <em>Service preference item</em> with the following parameters:
+    <ol>
+      <li>
+        <h5 id="general-tab">General Tab</h5>
+        <ol>
+          <li><strong>Startup:</strong> <code>No Change</code> (the policy we set above will take precedence over this anyway)</li>
+          <li><strong>Service name:</strong> <code>WinRM</code></li>
+          <li><strong>Service action (optional):</strong> <code>Start service</code></li>
+        </ol>
+      </li>
+      <li>
+        <h6 id="recovery-tab">Recovery Tab</h6>
+        <ol>
+          <li><strong>First, Second, and Subsequent Failures:</strong> <code>Restart the Service</code></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="the-install-powershell-20-and-winrm-policy">The <code>Install Powershell 2.0 and WinRM</code> Policy</h2>
+
+<p>Now we’ll create the second policy that I described. This one will install the <a href="https://support.microsoft.com/kb/968930">Windows Management Framework Core package</a> and .NET framework via a startup script. This policy will use a WMI filter so that we aren’t trying to do these steps on Windows 7 / 2008 R2 where it’s unnecessary.</p>
+
+<p>Since these are distributed as a Windows updates and not as an MSI, we can’t use software distribution to install them. That also means that if you’re using WSUS you’ll have to make sure that these updates are approved:</p>
+
+<ul>
+  <li>KB968930</li>
+  <li>KB951847</li>
+</ul>
+
+<h3 id="create-the-wmi-filter">Create The WMI Filter</h3>
+
+<p>First, let’s create the WMI filter that we’re going to use so that this policy will only apply to Windows Vista / 2008 and below.</p>
+
+<ol>
+  <li>In the Group Policy Management console, scroll down to <code>WMI Filters</code>.</li>
+  <li>Create a new WMI Filter, and give it a name and description.</li>
+  <li>In the <strong>Queries</strong> box, click the <strong>Add</strong> button.</li>
+  <li>Keep the namespace as <code>root\CIMv2</code> and then click into the <strong>Query</strong> box.</li>
+  <li>The following WQL query will match Windows Vista, Windows 2008, and lower operating systems:</li>
+</ol>
+
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">Win32_OperatingSystem</span> <span class="k">WHERE</span> <span class="k">Version</span> <span class="k">LIKE</span> <span class="ss">&quot;6.0%&quot;</span> <span class="k">OR</span> <span class="k">Version</span> <span class="k">LIKE</span> <span class="ss">&quot;5.%&quot;</span></code></pre></div>
+
+<h3 id="create-the-gpo">Create the GPO</h3>
+
+<ol>
+  <li>Create the GPO and link it to the same places as the first one.</li>
+  <li>Make sure that the WMI filter we created above is applied to the GPO.</li>
+</ol>
+
+<h3 id="set-up-the-startup-script">Set up the Startup Script</h3>
+
+<ol>
+  <li>Browse to <code>Policies &gt; Windows Settings &gt; Scripts</code></li>
+  <li>Open the <strong>Startup</strong> item, and make sure you’re on the <code>Scripts</code> tab (<em>not</em> PowerShell scripts).</li>
+  <li>Click the <strong>Show Files…</strong> button below. This location is where you must put the script. You can download the script from this <a href="https://gist.github.com/briantist/3734447">GitHub Gist</a>.</li>
+  <li>Once the file is in place, click the <strong>Add…</strong>* button in the <code>Startup Properties</code> window.</li>
+  <li>Type or paste the name of the VBScript file (just the name, <em>not</em> the full path).</li>
+  <li>Leave <strong>Script Parameters</strong> blank.</li>
+</ol>
+
+<h2 id="wrapping-up">Wrapping Up</h2>
+
+<p>With this in place, you’re ready to go! As with any group policy changes, test, test, and test again. I usually remove <code>Authenticated Users</code> from the <strong>Security Filtering</strong> and add in individual computers to test out policies on several machines before I let them loose on the domain (virtual machines with snapshots are great for this).</p>
+
+<p>Windows XP / 2003 machines probably need to be rebooted, maybe twice, for it all to work (especially if the script installs .NET). If you’ve got any other remote administration in place and working (<code>psexec</code>, WMI, third-party tools) you could use that to kickstart the execution of the VBScript that installs the management framework.</p>
+
+<p>Don’t forget about domain controllers! They’re usually in a different OU than the other computers in your domain, so don’t forget to link the policies to all of the appropriate containers.</p>
+
+<p>Happy remoting!</p>
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/group-policy/">
+					group policy <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/powershell/">
+					powershell <span>(10)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/vbscript/">
+					vbscript <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/winrm/">
+					winrm <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Enable Powershell Remoting via Group Policy&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/how-to/fix-incorrect-dates-in-utorrent/" title="Fix Incorrect Dates in uTorrent">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/how-to/confluence-jira-windows-upgrades/" title="Simplify Confluence and JIRA Upgrades on Windows">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = 'ebe8b75d-56f2-4ae4-82df-1fbd4fb5ffdb';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

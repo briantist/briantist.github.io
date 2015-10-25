@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>Windows Server 2012, VMware ESXi, and Strange Permissions Errors - Removable Storage Auditing what?</title>
+	
+	
+	<meta name="description" content="Windows 8 and 2012 throw permission denied or access denied errors when trying to access removable drives due to new auditing policies. IIS, WSUS affected.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Windows Server 2012, VMware ESXi, and Strange Permissions Errors - Removable Storage Auditing what? </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2013-04-08T20:46:13-04:00"><i class="fa fa-calendar"></i>
+		April 08, 2013
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="81ce00e1-8972-4c57-ad81-0978eb75535c" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p><strong>Update:</strong> There is now an <a href="https://support.microsoft.com/en-us/kb/2811670" target="_blank">update available via KB2811670 from Microsoft</a> to address this (<a href="#comment-2290082797">thanks Owen</a>).</p>
+
+<p>I’ve been getting ready to roll out Windows Server 2012 to be used for new production hosts, and one of the first machines I tried to deploy was a web server. I created my VM, installed Windows 2012, got IIS all set up. This web site was to be used for uploading and serving files, so I added a data disk and put the web site on this drive. The web app runs on Perl so I installed that, configured it, and no matter what I kept getting <code>500.19</code> errors. I don’t set up Perl all that often on IIS, and I thought for sure that it must have been some quirk in the process that I was missing.</p>
+
+<p>Instead it turned out to be an unholy combination of factors with the way that VMware presents disk drives to Windows and how Windows 8 / Server 2012 handles removable drives. It effects things other than IIS too. The symptoms are strange, the errors are unhelpful, and the fixes aren’t obvious.</p>
+
+<a name="more"></a>
+
+<h2 id="what-vmware-is-doing">What VMware is Doing</h2>
+
+<p>Starting with (I think)  ESXi 5, VMware presents whatever devices it can to Windows as hot-pluggable. So the network adapter and the <strong>disk drives</strong> show up in that little menu in the tray where you can tell Windows to eject a device.</p>
+
+<h2 id="what-server-2012-is-doing">What Server 2012 is Doing</h2>
+
+<p>Windows 8 and Windows 2012 have some weird auditing setting pertaining to removable drives. After all the researching I’m still not sure how <em>auditing</em> removable drive access changes whether the access is successful or not (no Heisenberg jokes please). But somehow this is what’s going on.</p>
+
+<h2 id="changing-the-audit-policy">Changing the Audit Policy</h2>
+
+<p>Most of the articles and discussions I’ve seen focus on changing the auditing policy. If you’re not using Core, you’d open <code>gpedit.msc</code> to look at the local policy, and then navigate to:</p>
+
+<p><code>Computer Configuration</code> &gt; <code>Windows Settings</code> &gt; <code>Security Settings</code> &gt; <code>Advanced Audit Policy Configuration</code> &gt; <code>System Audit Policies</code> &gt; <code>Object Access</code></p>
+
+<p>The setting is <code>Audit Removable Storage</code> and it’s set to a very innocuous looking <code>Not Configured</code> by default. The proposed fix is to <code>Enable</code> the policy but leave the <code>Success</code> and <code>Failure</code> checkboxes unchecked. Effectively this sets the value to <code>No Auditing</code>.</p>
+
+<p>I tried this method and it worked for the IIS issue.</p>
+
+<p>You can also set this through Group Policy, but you have to do it through a Windows 8 or Server 2012 Group Policy Management Console, because the setting doesn’t exist in the previous clients!</p>
+
+<h2 id="enter-wsus-40">Enter WSUS 4.0</h2>
+
+<p>I was having issues updating Windows 2012 and Windows 8 using WSUS 3.0 SP2. After reviewing the options, I felt the best way to go was to just deploy WSUS 4.0 in Windows 2012. I followed the <a href="http://technet.microsoft.com/en-us/library/hh852339.aspx" target="_blank">migration guide</a> but I was getting permissions errors with the WSUS content directory stored on a drive other than <code>C:</code>. I tested the above policy fix and this did not work for WSUS.</p>
+
+<h2 id="better-living-through-auditpol">Better Living Through <code>Auditpol</code></h2>
+
+<p>At this point I wasn’t fully aware of why these things were happening, and I was searching for the WSUS error, but I stumbled across this post from <a href="http://www.happysysadm.com/2013/02/access-denied-to-disk-share-on-windows.html" target="_blank">Happy Sysadmin</a> that shed more light on the whole situation. WSUS wasn’t mentioned but this post has 2 fixes which I didn’t see elsewhere.</p>
+
+<h3 id="fixing-it-in-vmware">Fixing it in VMware</h3>
+
+<p>One way to solve this whole mess is to <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1012225" target="_blank">disable hotplug in VMware</a>. If Windows doesn’t see the devices as hotpluggable, it won’t apply the removable storage auditing. I tried this, and it worked great. I personally like the hotplug feature though.</p>
+
+<h3 id="the-windows-solution">The Windows Solution</h3>
+
+<p>My favorite fix was the suggestion to use this command:</p>
+
+<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">auditpol <span class="n">/set</span> <span class="n">/subcategory:&quot;Removable</span> Storage&quot; <span class="n">/failure:disable</span></code></pre></div>
+
+<p>This worked for WSUS as well. The interesting thing is that seems like this would do the same thing as setting the policy to <code>No Auditing</code>, but it simply doesn’t. After running this command, the policy still shows up as <code>Not Configured</code>, and the effect does seems to be different.</p>
+
+<h2 id="errors-caused-by-removable-storage-auditing">Errors Caused by Removable Storage Auditing</h2>
+
+<p>The main reason I’m writing this even though there are other articles out there is that I want to compile a list of issues that are attributable to this behavior, and to be clear that the most proposed fix did not seem to work for me on one of those incidents. I suspect the VMware fix will always work and I’m <em>almost</em> as sure that the <code>auditpol</code> command will always work.</p>
+
+<h3 id="iis-50019-errors-when-site-is-located-on-non-system-drive">1. IIS 500.19 errors when site is located on non-system drive</h3>
+
+<p>For me, all of the fixes worked.</p>
+
+<h3 id="wsus-40-cannot-successfully-download-updates">2. WSUS 4.0 cannot successfully download updates</h3>
+
+<p>The way this manifested itself for me was that WSUS would act like it was downloading updates from Microsoft but no progress ever happened. When I ran wsusutil to check the integrity of the downloads, it wanted to re-download all of the updates. Still no progress. Reluctantly, I deleted everything on the volume. Still no progress. The manual policy setting did not work for me, but I was using Core and had to set it indirectly via Group Policy. Maybe I messed something up? But the auditpol command worked and the VMware fix worked too.</p>
+
+<h3 id="access-denied-to-disk-share">3. Access denied to disk share</h3>
+
+<p>I didn’t personally experience this one, but it was the main subject of the Happy Sysadmin article I linked above. Obviously the 2 workarounds listed there worked.</p>
+
+<h2 id="send-me-more">Send me More!</h2>
+
+<p>I want to hear more about similar issues. Contact me or leave a comment, and I’ll post about your experiences. Include error messages and numbers, steps to repeat when possible.</p>
+
+<h4 id="thanks-again-to-happy-sysadminhttpwwwhappysysadmcom201302access-denied-to-disk-share-on-windowshtmltargetblank">Thanks again to <a href="http://www.happysysadm.com/2013/02/access-denied-to-disk-share-on-windows.html" target="_blank">Happy Sysadmin</a>.</h4>
+
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/server-2012/">
+					server-2012 <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/vmware/">
+					vmware <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Windows Server 2012, VMware ESXi, and Strange Permissions Errors - Removable Storage Auditing what?&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/how-to/missing-computers-eset-nod32-remote-install/" title="Missing Computers in ESET NOD32 Remote Install Tab">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/errors/scheduled-task-powershell-0xfffd0000/" title="Last Result of 0xFFFD0000 for Powershell Scheduled Task">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = '81ce00e1-8972-4c57-ad81-0978eb75535c';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

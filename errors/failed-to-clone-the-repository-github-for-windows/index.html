@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>Failed to clone the repository in GitHub for Windows</title>
+	
+	
+	<meta name="description" content="How to fix &quot;failed to clone the repository - Please check your internet connection.&quot; in Git or GitHub for Windows by changing the default storage directory.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Failed to clone the repository in GitHub for Windows </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2013-09-09T00:34:26-04:00"><i class="fa fa-calendar"></i>
+		September 09, 2013
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="f8d52ad9-f45c-4fe9-9cdb-8779e21e7cd8" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p><img src="/images/post/failed-to-clone-the-repository-github-for-windows/failed-to-clone-the-repository-please-check-your-internet-connection.png" alt="failed-to-clone-the-repository-please-check-your-internet-connection" /></p>
+
+<p>I recently installed GitHub for Windows for the first time so I could compile an open source project. While trying to clone the repository, I got this error:</p>
+
+<blockquote>
+  <p>failed to clone the repository ‘<em>whatever</em>’<br />
+Please check your internet connection.</p>
+</blockquote>
+
+<p>I knew my internet connection was working. A web search revealed answers that didn’t apply or didn’t work for me (an issue that was resolved in an earlier version, and an issue that was fixed by re-installing).</p>
+
+<a name="more"></a>
+
+<p>Other descriptions of the problem seemed to happen right at the beginning of the clone operation, or somewhere in the middle. For me it happened at the very end, every time.</p>
+
+<p>Also, if I tried to clone the repo again after the failed attempt, it would take a long time comparing all the files, and then tell me there were thousands of uncommitted files.</p>
+
+<p>So I told GutHub for Windows to stop tracking the repo, and then manually deleted the folder before my many re-attempts.</p>
+
+<h2 id="using-git-shell">Using Git Shell</h2>
+
+<p>GitHub for Windows configures a Git Shell for you, which seems to be a pre-configured version of an existing shell. For me, it defaulted to PowerShell (other options were Cmd, Git Bash, and Custom). The following steps should work with any shell.</p>
+
+<p>I figured I’d try to clone the repo using the command line. To do this, find Git Shell on the start menu and open it. It should start in your <strong>default storage directory</strong> (more on this later).</p>
+
+<p>First, get the clone URL. This will be on the right side of the GitHub repo’s web page, like so:</p>
+
+<p><img src="/images/post/failed-to-clone-the-repository-github-for-windows/github-https-clone-url.png" alt="GitHub HTTPS Clone URL" /></p>
+
+<p>The command to clone a repo from GitHub is:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/project/project.git</code></pre></div>
+
+<p><strong>Note: do this in the directory that will be the parent of your project. Git will create the project directory for you.</strong></p>
+
+<p>In the following screen shot, you’ll see my failed attempt. My default storage  directory is <code>C:\Users\Briantist\Documents\GitHub</code> (the default that GitHub for Windows chose).</p>
+
+<p><a href="/images/post/failed-to-clone-the-repository-github-for-windows/git-shell-clone-repo.png" rel="lightbox" title="Git Shell Clone Repo"><img src="/images/post/failed-to-clone-the-repository-github-for-windows/git-shell-clone-repo-300x219.png" alt="Git Shell Clone Repo" /></a></p>
+
+<p>I got errors that it was unable to create a few files:</p>
+
+<blockquote>
+  <p>error: unable to create file <em>very/long/path/name</em> (no such file or directory)</p>
+</blockquote>
+
+<p>As well as:</p>
+
+<blockquote>
+  <p>fatal: unable to checkout working tree<br />
+warning: Clone succeeded, but checkout failed</p>
+</blockquote>
+
+<h2 id="default-storage-directory-and-path-name-length">Default Storage Directory and Path Name Length</h2>
+
+<p>You might be seeing the problem already. That very long path name is not too big by itself, but when added to the default data directory it seems to be exceeding what Windows can handle.</p>
+
+<p>I simply changed the <strong>default storage directory</strong> in GitHub for Windows to <code>C:\GitHub</code> to keep it nice and short. This is in under <code>tools</code> <i class="fa fa-gear"></i> &gt; <code>Options</code>. After that I had no issues.</p>
+
+<p>I suspect that this problem will affect .NET projects more than most because of the long names used in some of the files.</p>
+
+<p>It was just my luck that the first repo I tried to clone contained such long file names. I hope this post helps someone else save the hour+ it took me to figure it out.</p>
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/git/">
+					git <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/github/">
+					github <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Failed to clone the repository in GitHub for Windows&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/errors/scheduled-task-powershell-0xfffd0000/" title="Last Result of 0xFFFD0000 for Powershell Scheduled Task">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/errors/junk-mail-not-syncing-android-exchange-activesync/" title="Junk Mail Not Syncing on Android Exchange ActiveSync">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = 'f8d52ad9-f45c-4fe9-9cdb-8779e21e7cd8';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>How To Hide Pages from the 404 Page in a Genesis Wordpress Theme - briantist.com</title>
+	
+	
+	<meta name="description" content="How to exclude specific pages from the 404 page listing in a Genesis theme for Wordpress using a custom field in the page&#39;s metadata.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Hide Pages from the 404 Page in a Genesis Wordpress Theme </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2012-11-23T17:30:55-05:00"><i class="fa fa-calendar"></i>
+		November 23, 2012
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a1f0f061-ba1d-419a-8c4d-81c7843bddd0" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  
+<p>If you run your Wordpress blog on the wonderful <a href="http://www.shareasale.com/r.cfm?B=346200&amp;U=704608&amp;M=28169&amp;urllink=" rel="nofollow" target="_blank" onClick="ga('send', 'event', 'Product', 'click', 'StudioPress');">Genesis Framework</a> (as I <s>do</s> did), then you know that the 404 page is pretty nice out of the box. It gives the user a way back to the homepage, and lists of Pages and Posts and all kinds of ways to get people to find the content they wanted.</p>
+
+<p><a href="/images/post/hide-pages-404-genesis-theme-wordpress/wordpress-genesis-theme-404-page.png" rel="lightbox-genesis404" title="Wordpress Genesis Theme 404 Page"><img src="/images/post/hide-pages-404-genesis-theme-wordpress/wordpress-genesis-theme-404-page-300x231.png" alt="Wordpress Genesis Theme 404 Page" /></a></p>
+
+<p>It lacks customization options though. In most of the sites I work on, there are a few pages that don’t get linked from the menus because they’re specialty pages. It could be a “thank you for purchasing” page, or a landing page for traffic from a specific site or campaign.</p>
+
+<p>I’ve come up with a quick modification that lets you hide pages from the 404 listing by setting a field in the page’s metadata.</p>
+
+<a name="more"></a>
+
+<h2 id="changing-the-404">Changing the 404</h2>
+
+<p>Making any changes to the 404 page is going to require editing the PHP. But most Genesis child themes don’t include a customized 404; they just use the one provided by Genesis. We do not want to modify the file directly in Genesis. Instead we’ll copy the <code>404.php</code> file into the directory for the child theme.</p>
+
+<p>Copy: <code>wp-content/themes/genesis/404.php</code><br />
+To: <code>wp-content/themes/child_theme/404.php</code></p>
+
+<p>This will probably have to be done with your FTP program or through your web host’s file manager. Now, you can edit the <code>404.php</code> file in the child theme directory. For this, you can use any editing method you like, including the one in the Wordpress back end:<br />
+<code>Appearance</code> &gt; <code>Editor</code>.</p>
+
+<h2 id="the-wplistpages-function">The <code>wp_list_pages()</code> Function</h2>
+
+<p>Looking at the code in <code>404.php</code>, find where the pages are listed:</p>
+
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">&lt;h4&gt;</span><span class="cp">&lt;?php</span> <span class="nx">_e</span><span class="p">(</span> <span class="s1">&#39;Pages:&#39;</span><span class="p">,</span> <span class="s1">&#39;genesis&#39;</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="x">&lt;/h4&gt;</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">	</span><span class="cp">&lt;?php</span> <span class="nx">wp_list_pages</span><span class="p">(</span> <span class="s1">&#39;title_li=&#39;</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span></code></pre></div>
+
+<p>In the <a href="http://codex.wordpress.org/Function_Reference/wp_list_pages" target="_blank">documentation for the <code>wp_list_pages()</code> function</a>, you can see that there’s an exclude parameter. You can give it a list of page IDs and it will exclude those from the listing.</p>
+
+<p>I wanted a method that didn’t require me to modify the 404 file for every site I worked on, and <em>every single page I wanted hidden!</em></p>
+
+<h2 id="metadata-custom-fields">Metadata Custom Fields</h2>
+
+<p>Each post and page in Wordpress has the ability to add custom fields to its metadata, in the form of key/value pairs. This is perfect for what I wanted: a way to hide individual pages from the 404, and do it from the standard Wordpress back end.</p>
+
+<p>To do that, I made the following modification to code you see above:</p>
+
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">&lt;h4&gt;</span><span class="cp">&lt;?php</span> <span class="nx">_e</span><span class="p">(</span> <span class="s1">&#39;Pages:&#39;</span><span class="p">,</span> <span class="s1">&#39;genesis&#39;</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="x">&lt;/h4&gt;</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">	</span><span class="cp">&lt;?php</span>
+		<span class="nv">$pages</span> <span class="o">=</span> <span class="nx">get_pages</span><span class="p">();</span>
+		<span class="nv">$exclude</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+		<span class="k">foreach</span> <span class="p">(</span> <span class="nv">$pages</span> <span class="k">as</span> <span class="nv">$page</span> <span class="p">)</span> <span class="p">{</span>
+			<span class="nv">$meta</span> <span class="o">=</span> <span class="nx">get_post_custom_values</span><span class="p">(</span> <span class="s1">&#39;404&#39;</span> <span class="p">,</span> <span class="nv">$page</span><span class="o">-&gt;</span><span class="na">ID</span> <span class="p">);</span>
+			<span class="k">if</span> <span class="p">(</span> <span class="nv">$meta</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="k">foreach</span> <span class="p">(</span> <span class="nv">$meta</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span> <span class="p">)</span> <span class="p">{</span>
+					<span class="k">if</span> <span class="p">(</span> <span class="nv">$value</span> <span class="o">==</span> <span class="s1">&#39;hide&#39;</span> <span class="p">)</span> <span class="p">{</span>
+						<span class="nv">$exclude</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$page</span><span class="o">-&gt;</span><span class="na">ID</span><span class="p">;</span>
+						<span class="k">break</span><span class="p">;</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="nx">wp_list_pages</span><span class="p">(</span> <span class="s1">&#39;title_li=&amp;exclude=&#39;</span> <span class="o">.</span> <span class="nb">implode</span><span class="p">(</span> <span class="s1">&#39;,&#39;</span> <span class="p">,</span> <span class="nv">$exclude</span> <span class="p">)</span> <span class="p">);</span>
+	<span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span></code></pre></div>
+
+<p>The outline of what I’m doing here goes like this:</p>
+
+<ol>
+  <li>
+    <p>Get an array of all the pages using <code>get_pages()</code>.</p>
+  </li>
+  <li>
+    <p>For each page, get the value of any custom fields with the name <code>404</code>.</p>
+  </li>
+  <li>
+    <p>Look for a value of <code>hide</code> and if found, add the page ID to an array.</p>
+  </li>
+  <li>
+    <p>Finally, call <code>wp_list_pages()</code> with a comma separated list of pages (generated from our exclude array) to exclude.</p>
+  </li>
+</ol>
+
+<p>With these changes in place, the page is generic enough to be included in any Genesis child theme.</p>
+
+<h2 id="excluding-a-page">Excluding a Page</h2>
+
+<p>Now you need only set your metadata custom field with the name <code>404</code> and the value <code>hide</code>:</p>
+
+<p><a href="/images/post/hide-pages-404-genesis-theme-wordpress/wordpress-custom-fields-metadata-404-hide.png" rel="lightbox-genesis404" title="Wordpress Custom Fields Metadata 404 Hide"><img src="/images/post/hide-pages-404-genesis-theme-wordpress/wordpress-custom-fields-metadata-404-hide-300x58.png" alt="Wordpress Custom Fields Metadata 404 Hide" /></a></p>
+
+<p>Any value of other than <code>hide</code> will be ignored, and the page will be shown in the 404 listing.</p>
+
+<h2 id="other-considerations">Other Considerations</h2>
+
+<p>If you need to hide posts, you can apply the same logic to the section that shows posts, though I’ve never needed that functionality myself.</p>
+
+<p>Since I’m getting a list of all the pages with the call to <code>get_pages()</code>, I don’t need to call <code>wp_list_pages()</code> again; I could generate the list items and the links myself. But I didn’t want to have to worry about generating the right tags with the right classes and all that. I feel like the 404 page should be such a small part of your site’s traffic that an extra database call in the 404 won’t be such a big deal.</p>
+
+<p>I’ve also included a <a href="/images/post/hide-pages-404-genesis-theme-wordpress/404.php">completed 404.php file</a> which you can download here and use without changes. Just upload it to your child theme directory and you’re good to go (as long as there isn’t already one there).</p>
+
+<p><a href="/images/post/hide-pages-404-genesis-theme-wordpress/404.php"><img src="/images/post/hide-pages-404-genesis-theme-wordpress/php_file_ico.gif" alt="PHP File Icon" /></a> <a href="/images/post/hide-pages-404-genesis-theme-wordpress/404.php">404.php</a></p>
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/genesis-framework/">
+					genesis framework <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/php/">
+					php <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/wordpress/">
+					wordpress <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Hide Pages from the 404 Page in a Genesis Wordpress Theme&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/errors/dfs-properties-cannot-be-set-namespace-server-access-denied/" title="DFS: Properties cannot be set on the namespace server - Access is denied">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/how-to/missing-computers-eset-nod32-remote-install/" title="Missing Computers in ESET NOD32 Remote Install Tab">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = 'a1f0f061-ba1d-419a-8c4d-81c7843bddd0';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

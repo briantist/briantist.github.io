@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>Posts Tagged &quot;powershell&quot;</title>
+	
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Posts Tagged "powershell" </h1>
+</div>
+<div class="page-content">
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/'>Could not establish trust relationship for the SSL/TLS secure channel</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2015-08-17T18:40:33-04:00"><i class="fa fa-calendar"></i>
+		August 17, 2015
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="4b360992-2ad8-47b6-a433-8b51b8b29c00" href="/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>Sometimes we run web services internally that don’t use a trusted SSL certificate. It’s not good practice, but in the real world this will be encountered.</p>
+
+<p>In PowerShell, we often see this error come up when using <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Invoke-WebRequest</span></code> or <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Invoke-RestMethod</span></code> or even the <code class="highlight language-powershell" data-lang="powershell"><span class="no">[System.Net.WebClient]</span></code> class. All of these rely on the .Net framework which is set up to validate SSL certificates, so an exception gets thrown when we try to connect to a site over SSL that isn’t trusted.</p>
+
+<p>For a while, a lot of people created a class that implemented the <code>ICertificatePolicy</code> interface, provided a method that always returned true, and then set <code class="highlight language-csharp" data-lang="csharp"><span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">ServicePointManager</span><span class="p">.</span><span class="n">CertificatePolicy</span></code> to an instance of the new class. This is also the method I have used for a while, and in PowerShell it didn’t seem to complain. But I’ve recently found that <a href="http://stackoverflow.com/q/18454292/3905079" target="_blank" rel="nofollow">this method is in fact deprecated <i class="fa fa-stack-overflow"></i></a>.</p>
+
+<p>It seems the correct way is to set the <code class="highlight language-csharp" data-lang="csharp"><span class="n">ServicePointManager</span><span class="p">.</span><span class="n">ServerCertificateValidationCallback</span></code> property to a callback function. Ok, no problem. It’s almost the same thing.</p>
+
+<a class="read-more" href="/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/how-to/test-for-verbose-in-powershell/'>Test for Verbose in Powershell</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2014-12-22T15:21:21-05:00"><i class="fa fa-calendar"></i>
+		December 22, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="73d3fad2-11b7-4802-9648-4c3f763979cc" href="/how-to/test-for-verbose-in-powershell/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>I was looking for a way to determine whether I was in Verbose mode in Powershell. My web searches came up with various solutions that all suffer from problems. Most of them use <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$PSBoundParameters</span></code>. The most obvious problem with this is that it only works when <code class="highlight language-powershell" data-lang="powershell"><span class="n">-Verbose</span></code> was called directly on the script or function whose context you’re currently in. Since the Verbose state is inherited by child scopes, this is less than ideal.</p>
+
+<a class="read-more" href="/how-to/test-for-verbose-in-powershell/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/how-to/splatting-psboundparameters-default-values-optional-parameters/'>Splatting with $PSBoundParameters and Default Values for Optional Parameters</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2014-09-09T19:05:10-04:00"><i class="fa fa-calendar"></i>
+		September 09, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="45672ac2-38b8-40e5-be6b-b3583371f206" href="/how-to/splatting-psboundparameters-default-values-optional-parameters/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>Splatting is a really great feature in PowerShell that lets you take a <code class="highlight language-powershell" data-lang="powershell"><span class="no">[hashtable]</span></code> of parameters and call a function or cmdlet with the hash instead of having to type out every parameter name and value. It seems natural then that if you’re writing a wrapper or proxy function, where your function takes the same or nearly the same parameters as the function you’re calling, you could use <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$PSBoundParameters</span></code> to do the heavy lifting (this special variable contains all of the parameter values passed into the function).</p>
+
+<p>The problem comes when your proxy function has defaults for its optional parameters. <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$PSBoundParameters</span></code> only includes the values of parameters that were <em>explicitly supplied by the caller.</em> There is no such variable that contains the default values.</p>
+
+<a class="read-more" href="/how-to/splatting-psboundparameters-default-values-optional-parameters/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/errors/dns-manager-cant-set-txt-record-to-expire/'>DNS Manager Can't Set TXT Record to Expire</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2014-08-25T20:34:26-04:00"><i class="fa fa-calendar"></i>
+		August 25, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0462bf6f-ca52-42e4-b967-9d4393bdf94c" href="/errors/dns-manager-cant-set-txt-record-to-expire/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>I finally got DNS scavenging configured in our environment. It’s working great, no big disasters. I was browsing the DNS manager (so much faster now that we got rid of those 6,000+ resource records we didn’t need) and I noticed two <code>TXT</code> records that I created as a test last week. I didn’t need them anymore, but instead of deleting them I thought I’d just set them to expire and let scavenging take care of it. Funny thing is, the setting just wouldn’t stick. No errors, nothing preventing me from doing it, it just kept reverting to static.</p>
+
+<a class="read-more" href="/errors/dns-manager-cant-set-txt-record-to-expire/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/'>Get-DnsServerResourceRecord returns duplicate records when a sub-domain matching the zone exists</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2014-08-05T17:43:19-04:00"><i class="fa fa-calendar"></i>
+		August 05, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="8988bb0b-761a-4715-86fd-8a8a9acd0870" href="/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>While writing a PowerShell script to fix some DNS records, I came across some very strange behavior. I was calling <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Get-DnsServerResourceRecord</span></code> and it was returning duplicate results for every record. One result was correct, and the other one looked like it was the fully qualified domain name. The results made no sense to me, and I couldn’t figure out how now to return these extraneous records.</p>
+
+<a class="read-more" href="/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/how-to/get-progress-dfs-replication-database-cloning-import/'>Get Progress on DFS Replication Database Cloning Import</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2014-04-04T16:42:05-04:00"><i class="fa fa-calendar"></i>
+		April 04, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0ad50611-7997-475c-9600-77136b83dc34" href="/how-to/get-progress-dfs-replication-database-cloning-import/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>As I wrote in a <a href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/">previous post</a>, I began using the new DFS Replication database cloning technique to speed up initial sync. Thanks to <a href="http://blogs.technet.com/b/filecab/archive/2013/08/21/dfs-replication-initial-sync-in-windows-server-2012-r2-attack-of-the-clones.aspx" target="_blank">Ned Pyle’s great How-To on the subject</a>, I was able to tell exactly which events to look for in the event log to get an idea of progress: <code>2412</code> for the start of the process, <code>2416</code> for progress, <code>2404</code> for successful finish, and <code>2418</code> for an unsuccessful end (found that one out on my own, whoops!).</p>
+
+<p>Since I clearly had a few hours to kill while the import happened, I wrote up a quick script to show the progress, with estimated time remaining.</p>
+
+<a class="read-more" href="/how-to/get-progress-dfs-replication-database-cloning-import/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/'>DFSR Database Cloning Import Fails - 0x00001129 - Error 4393 - The tag present in the reparse point buffer is invalid</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2014-04-04T15:53:08-04:00"><i class="fa fa-calendar"></i>
+		April 04, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="054990fa-390e-4cce-bd75-97ea7014fd3b" href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>Windows 2012 R2 introduces a great feature for speeding up DFS Replication initial sync: Database Cloning. The details are covered very well by <a href="http://blogs.technet.com/b/filecab/archive/2013/08/21/dfs-replication-initial-sync-in-windows-server-2012-r2-attack-of-the-clones.aspx" target="_blank">Ned Pyle’s excellent blog posts, especially this one</a>. Seeing as how this is pretty new stuff, there doesn’t seem to be a lot of documentation about the possible errors, and I encountered the one in the title.</p>
+
+<a class="read-more" href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/errors/scheduled-task-powershell-0xfffd0000/'>Last Result of 0xFFFD0000 for Powershell Scheduled Task</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2013-06-06T19:16:45-04:00"><i class="fa fa-calendar"></i>
+		June 06, 2013
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="2b87f878-3444-4265-8a8c-336ea40baea3" href="/errors/scheduled-task-powershell-0xfffd0000/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>In my environment I push out a scheduled task which runs a PowerShell script. The PowerShell script sits on a network share. Recently, we changed the share where our scripts are stored, and as a result we updated the task to point to the new script location. The task used to work, but now it throws a Last Run Result error, with the return code <code>0xFFFD0000</code>.</p>
+
+<a class="read-more" href="/errors/scheduled-task-powershell-0xfffd0000/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/how-to/confluence-jira-windows-upgrades/'>Simplify Confluence and JIRA Upgrades on Windows</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2012-09-26T20:04:44-04:00"><i class="fa fa-calendar"></i>
+		September 26, 2012
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a731b830-d022-4b48-83f9-1784d34a293c" href="/how-to/confluence-jira-windows-upgrades/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>The new installer for Confluence and JIRA on Windows simplifies upgrades, but it also overwrites added or modified files in your program directory. If you have added or modified a lot of files, it can be tedious to restore those modifications after the upgrade. To that end, I’ve written a simple powershell script which will back up all of the modified files and then optionally restore the files once the upgrade is complete.</p>
+
+<a class="read-more" href="/how-to/confluence-jira-windows-upgrades/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/how-to/powershell-remoting-group-policy/'>Enable Powershell Remoting via Group Policy</a></h2>
+    	 <div class="byline">
+		
+			
+		
+		<time datetime="2012-09-16T22:29:44-04:00"><i class="fa fa-calendar"></i>
+		September 16, 2012
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="ebe8b75d-56f2-4ae4-82df-1fbd4fb5ffdb" href="/how-to/powershell-remoting-group-policy/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    <p>Powershell really is a game changer when it comes management and scripting on Windows, but one of the areas where it really shines is in its remoting capability. Powershell remoting lets you connect to a remote system and run commands locally, then returns the results to the calling machine. This can be done as an automated block or as an interactive session.</p>
+
+<p>Remoting requires Powershell 2.0 which comes built-in on Windows 7 and Windows 2008 R2, but it needs to be installed on Windows Vista / Server 2008 and below. The WinRM service will also have to be configured and enabled.</p>
+
+<p>I’ll show you how to accomplish this with group policy for the range of operating systems that can run it.</p>
+
+<p><strong>Update 2013/02/20:</strong> I have confirmed that this method is working on Server 2012 (core and GUI) as well.</p>
+
+<p><strong>Update 2013/05/07:</strong> With the help of Jacob in the comments below, I was able to fix a problem in the VB Script. Since Powershell requires the .NET framework, this whole process will fail on Windows 2003 / XP if .NET is not installed. The VB Script now installs .NET as part of the process. The <a href="https://gist.github.com/briantist/3734447">GitHub Gist</a> has been updated. Thanks Jacob!</p>
+
+<p><strong>Update 2013/10/09:</strong> Updated the name of the WinRM policy setting based on user comments. Thanks to Micahel M. of Miller Computers and Giorgi Gordeziani.</p>
+
+<a class="read-more" href="/how-to/powershell-remoting-group-policy/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+</div>
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

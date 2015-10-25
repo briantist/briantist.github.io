@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>briantist.com</title>
+		<description>Four million lines of BASIC</description>
+		<link>http://www.briantist.com/</link>
+		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+		<lastBuildDate>Sun, 25 Oct 2015 18:49:47 -0400</lastBuildDate>
+		<language>en-us</language>
+		
+			<item>
+				<title>Could not establish trust relationship for the SSL/TLS secure channel</title>
+				<pubDate>Mon, 17 Aug 2015 18:40:33 -0400</pubDate>
+				<link>http://www.briantist.com/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/</link>
+				<comments>http://www.briantist.com/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/</guid>
+				<description><![CDATA[<p>Sometimes we run web services internally that don’t use a trusted SSL certificate. It’s not good practice, but in the real world this will be encountered.</p>
+
+<p>In PowerShell, we often see this error come up when using <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Invoke-WebRequest</span></code> or <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Invoke-RestMethod</span></code> or even the <code class="highlight language-powershell" data-lang="powershell"><span class="no">[System.Net.WebClient]</span></code> class. All of these rely on the .Net framework which is set up to validate SSL certificates, so an exception gets thrown when we try to connect to a site over SSL that isn’t trusted.</p>
+
+<p>For a while, a lot of people created a class that implemented the <code>ICertificatePolicy</code> interface, provided a method that always returned true, and then set <code class="highlight language-csharp" data-lang="csharp"><span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">ServicePointManager</span><span class="p">.</span><span class="n">CertificatePolicy</span></code> to an instance of the new class. This is also the method I have used for a while, and in PowerShell it didn’t seem to complain. But I’ve recently found that <a href="http://stackoverflow.com/q/18454292/3905079" target="_blank" rel="nofollow">this method is in fact deprecated <i class="fa fa-stack-overflow"></i></a>.</p>
+
+<p>It seems the correct way is to set the <code class="highlight language-csharp" data-lang="csharp"><span class="n">ServicePointManager</span><span class="p">.</span><span class="n">ServerCertificateValidationCallback</span></code> property to a callback function. Ok, no problem. It’s almost the same thing.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/">Could not establish trust relationship for the SSL/TLS secure channel</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Test for Verbose in Powershell</title>
+				<pubDate>Mon, 22 Dec 2014 15:21:21 -0500</pubDate>
+				<link>http://www.briantist.com/how-to/test-for-verbose-in-powershell/</link>
+				<comments>http://www.briantist.com/how-to/test-for-verbose-in-powershell/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/test-for-verbose-in-powershell/</guid>
+				<description><![CDATA[<p>I was looking for a way to determine whether I was in Verbose mode in Powershell. My web searches came up with various solutions that all suffer from problems. Most of them use <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$PSBoundParameters</span></code>. The most obvious problem with this is that it only works when <code class="highlight language-powershell" data-lang="powershell"><span class="n">-Verbose</span></code> was called directly on the script or function whose context you’re currently in. Since the Verbose state is inherited by child scopes, this is less than ideal.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/test-for-verbose-in-powershell/">Test for Verbose in Powershell</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Splatting with $PSBoundParameters and Default Values for Optional Parameters</title>
+				<pubDate>Tue, 09 Sep 2014 19:05:10 -0400</pubDate>
+				<link>http://www.briantist.com/how-to/splatting-psboundparameters-default-values-optional-parameters/</link>
+				<comments>http://www.briantist.com/how-to/splatting-psboundparameters-default-values-optional-parameters/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/splatting-psboundparameters-default-values-optional-parameters/</guid>
+				<description><![CDATA[<p>Splatting is a really great feature in PowerShell that lets you take a <code class="highlight language-powershell" data-lang="powershell"><span class="no">[hashtable]</span></code> of parameters and call a function or cmdlet with the hash instead of having to type out every parameter name and value. It seems natural then that if you’re writing a wrapper or proxy function, where your function takes the same or nearly the same parameters as the function you’re calling, you could use <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$PSBoundParameters</span></code> to do the heavy lifting (this special variable contains all of the parameter values passed into the function).</p>
+
+<p>The problem comes when your proxy function has defaults for its optional parameters. <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$PSBoundParameters</span></code> only includes the values of parameters that were <em>explicitly supplied by the caller.</em> There is no such variable that contains the default values.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/splatting-psboundparameters-default-values-optional-parameters/">Splatting with $PSBoundParameters and Default Values for Optional Parameters</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>DNS Manager Can't Set TXT Record to Expire</title>
+				<pubDate>Mon, 25 Aug 2014 20:34:26 -0400</pubDate>
+				<link>http://www.briantist.com/errors/dns-manager-cant-set-txt-record-to-expire/</link>
+				<comments>http://www.briantist.com/errors/dns-manager-cant-set-txt-record-to-expire/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/dns-manager-cant-set-txt-record-to-expire/</guid>
+				<description><![CDATA[<p>I finally got DNS scavenging configured in our environment. It’s working great, no big disasters. I was browsing the DNS manager (so much faster now that we got rid of those 6,000+ resource records we didn’t need) and I noticed two <code>TXT</code> records that I created as a test last week. I didn’t need them anymore, but instead of deleting them I thought I’d just set them to expire and let scavenging take care of it. Funny thing is, the setting just wouldn’t stick. No errors, nothing preventing me from doing it, it just kept reverting to static.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/dns-manager-cant-set-txt-record-to-expire/">DNS Manager Can't Set TXT Record to Expire</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Get-DnsServerResourceRecord returns duplicate records when a sub-domain matching the zone exists</title>
+				<pubDate>Tue, 05 Aug 2014 17:43:19 -0400</pubDate>
+				<link>http://www.briantist.com/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/</link>
+				<comments>http://www.briantist.com/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/</guid>
+				<description><![CDATA[<p>While writing a PowerShell script to fix some DNS records, I came across some very strange behavior. I was calling <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Get-DnsServerResourceRecord</span></code> and it was returning duplicate results for every record. One result was correct, and the other one looked like it was the fully qualified domain name. The results made no sense to me, and I couldn’t figure out how now to return these extraneous records.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/">Get-DnsServerResourceRecord returns duplicate records when a sub-domain matching the zone exists</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Get Progress on DFS Replication Database Cloning Import</title>
+				<pubDate>Fri, 04 Apr 2014 16:42:05 -0400</pubDate>
+				<link>http://www.briantist.com/how-to/get-progress-dfs-replication-database-cloning-import/</link>
+				<comments>http://www.briantist.com/how-to/get-progress-dfs-replication-database-cloning-import/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/get-progress-dfs-replication-database-cloning-import/</guid>
+				<description><![CDATA[<p>As I wrote in a <a href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/">previous post</a>, I began using the new DFS Replication database cloning technique to speed up initial sync. Thanks to <a href="http://blogs.technet.com/b/filecab/archive/2013/08/21/dfs-replication-initial-sync-in-windows-server-2012-r2-attack-of-the-clones.aspx" target="_blank">Ned Pyle’s great How-To on the subject</a>, I was able to tell exactly which events to look for in the event log to get an idea of progress: <code>2412</code> for the start of the process, <code>2416</code> for progress, <code>2404</code> for successful finish, and <code>2418</code> for an unsuccessful end (found that one out on my own, whoops!).</p>
+
+<p>Since I clearly had a few hours to kill while the import happened, I wrote up a quick script to show the progress, with estimated time remaining.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/get-progress-dfs-replication-database-cloning-import/">Get Progress on DFS Replication Database Cloning Import</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>DFSR Database Cloning Import Fails - 0x00001129 - Error 4393 - The tag present in the reparse point buffer is invalid</title>
+				<pubDate>Fri, 04 Apr 2014 15:53:08 -0400</pubDate>
+				<link>http://www.briantist.com/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/</link>
+				<comments>http://www.briantist.com/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/</guid>
+				<description><![CDATA[<p>Windows 2012 R2 introduces a great feature for speeding up DFS Replication initial sync: Database Cloning. The details are covered very well by <a href="http://blogs.technet.com/b/filecab/archive/2013/08/21/dfs-replication-initial-sync-in-windows-server-2012-r2-attack-of-the-clones.aspx" target="_blank">Ned Pyle’s excellent blog posts, especially this one</a>. Seeing as how this is pretty new stuff, there doesn’t seem to be a lot of documentation about the possible errors, and I encountered the one in the title.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/">DFSR Database Cloning Import Fails - 0x00001129 - Error 4393 - The tag present in the reparse point buffer is invalid</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Remote Desktop Gateway Server is Temporarily Unavailable on SBS 2011 After Uninstalling Exchange Server</title>
+				<pubDate>Wed, 12 Feb 2014 19:30:07 -0500</pubDate>
+				<link>http://www.briantist.com/errors/remote-desktop-gateway-server-temporarily-unavailable-sbs-2011-after-uninstalling-exchange-server/</link>
+				<comments>http://www.briantist.com/errors/remote-desktop-gateway-server-temporarily-unavailable-sbs-2011-after-uninstalling-exchange-server/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/remote-desktop-gateway-server-temporarily-unavailable-sbs-2011-after-uninstalling-exchange-server/</guid>
+				<description><![CDATA[<p>There are several causes of the error “Your computer can’t connect to the remote computer because the remote desktop gateway server is temporarily unavailable” in Windows SBS 2011. There are a lot of articles that deal with the specifics so I’ll go over those more common causes briefly before explaining my issue (which related to uninstalling Exchange).</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/remote-desktop-gateway-server-temporarily-unavailable-sbs-2011-after-uninstalling-exchange-server/">Remote Desktop Gateway Server is Temporarily Unavailable on SBS 2011 After Uninstalling Exchange Server</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Configure Confluence SMTP with TLS via JNDI for Office 365 Relay</title>
+				<pubDate>Sun, 08 Dec 2013 23:58:21 -0500</pubDate>
+				<link>http://www.briantist.com/how-to/configure-confluence-smtp-tls-jndi-office-365-relay/</link>
+				<comments>http://www.briantist.com/how-to/configure-confluence-smtp-tls-jndi-office-365-relay/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/configure-confluence-smtp-tls-jndi-office-365-relay/</guid>
+				<description><![CDATA[<p>or</p>
+
+<h2 id="how-to-fixjavaxnetsslsslexception-unrecognized-ssl-message-plaintext-connection-in-confluence-jndi">How To Fix: javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection in Confluence JNDI</h2>
+
+<p>I’ve been doing Exchange to Office 365 migrations lately and that means on-premises applications and devices can’t use the local Exchange server to send mail anymore.</p>
+
+<p>Your options are to use the credentials of an Office 365 mailbox to send mail, set up a local SMTP relayer, or use a third-party SMTP service.</p>
+
+<p>If you’ve opted to use an Office 365 login to send mail via SMTP, then you must use TLS, so the applications/devices sending mail must support sending mail with TLS on port 587.</p>
+
+<p>This article focuses on Atlassian Confluence but may apply to other java applications using JNDI to configure mail.</p>
+
+<h2 id="atlassian-confluence-secure-smtp-and-jndi">Atlassian Confluence, Secure SMTP, and JNDI</h2>
+
+<p>Confluence has no way to set up secure SMTP with SSL or TLS from within the administration, so unfortunately you’re forced to configure Confluence to use a JNDI Location for SMTP. This involves moving around JARs and changing configuration files, which will end up slowing down your upgrades (see my script to <a href="/how-to/confluence-jira-windows-upgrades/">make Confluence upgrades easier</a>).</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/configure-confluence-smtp-tls-jndi-office-365-relay/">Configure Confluence SMTP with TLS via JNDI for Office 365 Relay</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Junk Mail Not Syncing on Android Exchange ActiveSync</title>
+				<pubDate>Sun, 29 Sep 2013 20:10:59 -0400</pubDate>
+				<link>http://www.briantist.com/errors/junk-mail-not-syncing-android-exchange-activesync/</link>
+				<comments>http://www.briantist.com/errors/junk-mail-not-syncing-android-exchange-activesync/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/junk-mail-not-syncing-android-exchange-activesync/</guid>
+				<description><![CDATA[<p><a href="/images/post/junk-mail-not-syncing-android-exchange-activesync/2013-09-29-19.55.30.png" rel="lightbox-android-junk" title="Junk Email - No Messages"><img src="/images/post/junk-mail-not-syncing-android-exchange-activesync/2013-09-29-19.55.30-150x150.png" alt="Junk Email - No Messages" /></a></p>
+
+<p>I was asked recently to look at an Android phone that was connected to Exchange via ActiveSync. It was working fine for regular email, but Junk mail was seemingly not coming through.</p>
+
+<p>Doesn’t sound like too bad a problem to have, but if you have clients (or worse, <em>prospective</em> clients) end up in Junk mail from time to time, and you don’t know it, it can seem like you’re ignoring them. Not good!</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/junk-mail-not-syncing-android-exchange-activesync/">Junk Mail Not Syncing on Android Exchange ActiveSync</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Failed to clone the repository in GitHub for Windows</title>
+				<pubDate>Mon, 09 Sep 2013 00:34:26 -0400</pubDate>
+				<link>http://www.briantist.com/errors/failed-to-clone-the-repository-github-for-windows/</link>
+				<comments>http://www.briantist.com/errors/failed-to-clone-the-repository-github-for-windows/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/failed-to-clone-the-repository-github-for-windows/</guid>
+				<description><![CDATA[<p><img src="/images/post/failed-to-clone-the-repository-github-for-windows/failed-to-clone-the-repository-please-check-your-internet-connection.png" alt="failed-to-clone-the-repository-please-check-your-internet-connection" /></p>
+
+<p>I recently installed GitHub for Windows for the first time so I could compile an open source project. While trying to clone the repository, I got this error:</p>
+
+<blockquote>
+  <p>failed to clone the repository ‘<em>whatever</em>’<br />
+Please check your internet connection.</p>
+</blockquote>
+
+<p>I knew my internet connection was working. A web search revealed answers that didn’t apply or didn’t work for me (an issue that was resolved in an earlier version, and an issue that was fixed by re-installing).</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/failed-to-clone-the-repository-github-for-windows/">Failed to clone the repository in GitHub for Windows</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Last Result of 0xFFFD0000 for Powershell Scheduled Task</title>
+				<pubDate>Thu, 06 Jun 2013 19:16:45 -0400</pubDate>
+				<link>http://www.briantist.com/errors/scheduled-task-powershell-0xfffd0000/</link>
+				<comments>http://www.briantist.com/errors/scheduled-task-powershell-0xfffd0000/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/scheduled-task-powershell-0xfffd0000/</guid>
+				<description><![CDATA[<p>In my environment I push out a scheduled task which runs a PowerShell script. The PowerShell script sits on a network share. Recently, we changed the share where our scripts are stored, and as a result we updated the task to point to the new script location. The task used to work, but now it throws a Last Run Result error, with the return code <code>0xFFFD0000</code>.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/scheduled-task-powershell-0xfffd0000/">Last Result of 0xFFFD0000 for Powershell Scheduled Task</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Windows Server 2012, VMware ESXi, and Strange Permissions Errors - Removable Storage Auditing what?</title>
+				<pubDate>Mon, 08 Apr 2013 20:46:13 -0400</pubDate>
+				<link>http://www.briantist.com/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/</link>
+				<comments>http://www.briantist.com/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/</guid>
+				<description><![CDATA[<p><strong>Update:</strong> There is now an <a href="https://support.microsoft.com/en-us/kb/2811670" target="_blank">update available via KB2811670 from Microsoft</a> to address this (<a href="#comment-2290082797">thanks Owen</a>).</p>
+
+<p>I’ve been getting ready to roll out Windows Server 2012 to be used for new production hosts, and one of the first machines I tried to deploy was a web server. I created my VM, installed Windows 2012, got IIS all set up. This web site was to be used for uploading and serving files, so I added a data disk and put the web site on this drive. The web app runs on Perl so I installed that, configured it, and no matter what I kept getting <code>500.19</code> errors. I don’t set up Perl all that often on IIS, and I thought for sure that it must have been some quirk in the process that I was missing.</p>
+
+<p>Instead it turned out to be an unholy combination of factors with the way that VMware presents disk drives to Windows and how Windows 8 / Server 2012 handles removable drives. It effects things other than IIS too. The symptoms are strange, the errors are unhelpful, and the fixes aren’t obvious.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/">Windows Server 2012, VMware ESXi, and Strange Permissions Errors - Removable Storage Auditing what?</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>How To Find Missing Computers in ESET NOD32 Remote Install - briantist.com</title>
+				<pubDate>Sun, 23 Dec 2012 01:18:07 -0500</pubDate>
+				<link>http://www.briantist.com/how-to/missing-computers-eset-nod32-remote-install/</link>
+				<comments>http://www.briantist.com/how-to/missing-computers-eset-nod32-remote-install/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/missing-computers-eset-nod32-remote-install/</guid>
+				<description><![CDATA[<p>The ESET Remote Administrator Console hasn’t caused me much grief over the years when it comes to pushing out installations. But recently I was helping a client upgrade the workstations to version 5 of NOD32, now called ESET Endpoint Antivirus, or ESET Smart Security. Things seemed to be going fine, but then I noticed that at least 2 computers were not in the <code>Remote Install</code> tab’s computer list.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/missing-computers-eset-nod32-remote-install/">Missing Computers in ESET NOD32 Remote Install Tab</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>How To Hide Pages from the 404 Page in a Genesis Wordpress Theme - briantist.com</title>
+				<pubDate>Fri, 23 Nov 2012 17:30:55 -0500</pubDate>
+				<link>http://www.briantist.com/how-to/hide-pages-404-genesis-theme-wordpress/</link>
+				<comments>http://www.briantist.com/how-to/hide-pages-404-genesis-theme-wordpress/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/hide-pages-404-genesis-theme-wordpress/</guid>
+				<description><![CDATA[
+<p>If you run your Wordpress blog on the wonderful <a href="http://www.shareasale.com/r.cfm?B=346200&amp;U=704608&amp;M=28169&amp;urllink=" rel="nofollow" target="_blank" onClick="ga('send', 'event', 'Product', 'click', 'StudioPress');">Genesis Framework</a> (as I <s>do</s> did), then you know that the 404 page is pretty nice out of the box. It gives the user a way back to the homepage, and lists of Pages and Posts and all kinds of ways to get people to find the content they wanted.</p>
+
+<p><a href="/images/post/hide-pages-404-genesis-theme-wordpress/wordpress-genesis-theme-404-page.png" rel="lightbox-genesis404" title="Wordpress Genesis Theme 404 Page"><img src="/images/post/hide-pages-404-genesis-theme-wordpress/wordpress-genesis-theme-404-page-300x231.png" alt="Wordpress Genesis Theme 404 Page" /></a></p>
+
+<p>It lacks customization options though. In most of the sites I work on, there are a few pages that don’t get linked from the menus because they’re specialty pages. It could be a “thank you for purchasing” page, or a landing page for traffic from a specific site or campaign.</p>
+
+<p>I’ve come up with a quick modification that lets you hide pages from the 404 listing by setting a field in the page’s metadata.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/hide-pages-404-genesis-theme-wordpress/">Hide Pages from the 404 Page in a Genesis Wordpress Theme</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>DFS: Properties cannot be set on the namespace server - Access is denied</title>
+				<pubDate>Fri, 16 Nov 2012 21:41:49 -0500</pubDate>
+				<link>http://www.briantist.com/errors/dfs-properties-cannot-be-set-namespace-server-access-denied/</link>
+				<comments>http://www.briantist.com/errors/dfs-properties-cannot-be-set-namespace-server-access-denied/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/errors/dfs-properties-cannot-be-set-namespace-server-access-denied/</guid>
+				<description><![CDATA[<p>I ran across a strange problem the other day with DFS. I needed to override the referral ordering for a namespace server, but the change wouldn’t take. I got a status of Error during the <em>Commit changes</em> task. In the detail, it showed <code>Properties cannot be set on the namespace server \\SERVER.domain.local\Share. Access is denied</code>.</p>
+
+<p><a href="/images/post/dfs-properties-cannot-be-set-namespace-server-access-denied/dfs-access-is-denied-namespace-server.png" rel="lightbox-dfs" title="Properties cannot be set on the namespace server - Access is denied"><img src="/images/post/dfs-properties-cannot-be-set-namespace-server-access-denied/dfs-access-is-denied-namespace-server.png" alt="Properties cannot be set on the namespace server - Access is denied" /></a></p>
+
+<p>This error must be uncommon, because all of the search results are for a similar but differently worded error about changing the properties of a <em>folder</em> and that issue’s resolutions don’t apply here.</p>
+
+<p>I finally figured out the problem, and thought I’d share!</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/errors/dfs-properties-cannot-be-set-namespace-server-access-denied/">DFS: Properties cannot be set on the namespace server - Access is denied</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>How To Use jTDS NTLM Authentication in Confluence with SQL Server - briantist.com</title>
+				<pubDate>Mon, 05 Nov 2012 11:58:13 -0500</pubDate>
+				<link>http://www.briantist.com/how-to/jtds-ntlm-auth-confluence-sql-server/</link>
+				<comments>http://www.briantist.com/how-to/jtds-ntlm-auth-confluence-sql-server/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/jtds-ntlm-auth-confluence-sql-server/</guid>
+				<description><![CDATA[<p>I run Atlassian’s Confluence in several organizations. It’s a great product and runs on many platforms. Being a Windows admin I tend to stick to the existing Microsoft stack where possible, so I typically run Confluence on Windows against Microsoft SQL Server. The jTDS driver that comes with Confluence wants to use a SQL server user and can’t use NTLM/Windows authentication out of the box. With a few simple changes, we can have Confluence using NTLM auth to connect to SQL Server.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/jtds-ntlm-auth-confluence-sql-server/">Use jTDS NTLM Authentication in Confluence with SQL Server</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Send Mail to Multiple Recipients with Ruby & Pony - briantist.com</title>
+				<pubDate>Mon, 22 Oct 2012 21:38:07 -0400</pubDate>
+				<link>http://www.briantist.com/how-to/send-mail-multiple-recipients-ruby-pony/</link>
+				<comments>http://www.briantist.com/how-to/send-mail-multiple-recipients-ruby-pony/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/send-mail-multiple-recipients-ruby-pony/</guid>
+				<description><![CDATA[
+<p>One of my favorite ways to send mail from Ruby is through the <a href="http://rubygems.org/gems/pony">Pony gem</a>. If you haven’t used it, it’s definitely worth a look. I recently found the need to send mail to multiple recipients, and I couldn’t figure out how based on their documentation.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/send-mail-multiple-recipients-ruby-pony/">Send Mail to Multiple Recipients with Ruby & Pony</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>Viking ATA-100 / Cortelco 8211 Analog Telephone Adapter Defaults</title>
+				<pubDate>Sat, 13 Oct 2012 23:26:17 -0400</pubDate>
+				<link>http://www.briantist.com/how-to/configure-viking-ata-100-cortelco-8211-analog-telephone-adapter/</link>
+				<comments>http://www.briantist.com/how-to/configure-viking-ata-100-cortelco-8211-analog-telephone-adapter/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/configure-viking-ata-100-cortelco-8211-analog-telephone-adapter/</guid>
+				<description><![CDATA[
+<p>Last week I had to diagnose a VoIP problem for a client wherein an intercom which acted as a regular POTS “phone” was connected to their IP-based PBX. The intermediary was a small box called an Analog Telephone Adapter. The Viking model number appears to be <a href="http://amzn.to/1GzNvDJ" rel="nofollow" target="_blank" onClick="ga('send', 'event', 'Product', 'click', 'ATA-100');">ATA-100</a> while the actual Cortelco model is 8211 or <a href="http://amzn.to/1GzNvDJ" rel="nofollow" target="_blank" onClick="ga('send', 'event', 'Product', 'click', '821121-ATA-PAK');">821121-ATA-PAK</a>. The ATA registers as a generic SIP device with the PBX, but it wasn’t registering. I needed to log in to the web interface, and the client didn’t have the login.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/configure-viking-ata-100-cortelco-8211-analog-telephone-adapter/">Configure a Viking ATA-100 / Cortelco 8211 Analog Telephone Adapter</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>How To Simplify Confluence and JIRA Upgrades on Windows - briantist.com</title>
+				<pubDate>Wed, 26 Sep 2012 20:04:44 -0400</pubDate>
+				<link>http://www.briantist.com/how-to/confluence-jira-windows-upgrades/</link>
+				<comments>http://www.briantist.com/how-to/confluence-jira-windows-upgrades/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/confluence-jira-windows-upgrades/</guid>
+				<description><![CDATA[<p>The new installer for Confluence and JIRA on Windows simplifies upgrades, but it also overwrites added or modified files in your program directory. If you have added or modified a lot of files, it can be tedious to restore those modifications after the upgrade. To that end, I’ve written a simple powershell script which will back up all of the modified files and then optionally restore the files once the upgrade is complete.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/confluence-jira-windows-upgrades/">Simplify Confluence and JIRA Upgrades on Windows</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>How To Enable Powershell Remoting via Group Policy</title>
+				<pubDate>Sun, 16 Sep 2012 22:29:44 -0400</pubDate>
+				<link>http://www.briantist.com/how-to/powershell-remoting-group-policy/</link>
+				<comments>http://www.briantist.com/how-to/powershell-remoting-group-policy/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/powershell-remoting-group-policy/</guid>
+				<description><![CDATA[<p>Powershell really is a game changer when it comes management and scripting on Windows, but one of the areas where it really shines is in its remoting capability. Powershell remoting lets you connect to a remote system and run commands locally, then returns the results to the calling machine. This can be done as an automated block or as an interactive session.</p>
+
+<p>Remoting requires Powershell 2.0 which comes built-in on Windows 7 and Windows 2008 R2, but it needs to be installed on Windows Vista / Server 2008 and below. The WinRM service will also have to be configured and enabled.</p>
+
+<p>I’ll show you how to accomplish this with group policy for the range of operating systems that can run it.</p>
+
+<p><strong>Update 2013/02/20:</strong> I have confirmed that this method is working on Server 2012 (core and GUI) as well.</p>
+
+<p><strong>Update 2013/05/07:</strong> With the help of Jacob in the comments below, I was able to fix a problem in the VB Script. Since Powershell requires the .NET framework, this whole process will fail on Windows 2003 / XP if .NET is not installed. The VB Script now installs .NET as part of the process. The <a href="https://gist.github.com/briantist/3734447">GitHub Gist</a> has been updated. Thanks Jacob!</p>
+
+<p><strong>Update 2013/10/09:</strong> Updated the name of the WinRM policy setting based on user comments. Thanks to Micahel M. of Miller Computers and Giorgi Gordeziani.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/powershell-remoting-group-policy/">Enable Powershell Remoting via Group Policy</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+			<item>
+				<title>How to Fix Incorrect Dates in uTorrent - briantist.com</title>
+				<pubDate>Tue, 11 Sep 2012 20:29:35 -0400</pubDate>
+				<link>http://www.briantist.com/how-to/fix-incorrect-dates-in-utorrent/</link>
+				<comments>http://www.briantist.com/how-to/fix-incorrect-dates-in-utorrent/#disqus_thread</comments>
+				<guid isPermaLink="true">http://www.briantist.com/how-to/fix-incorrect-dates-in-utorrent/</guid>
+				<description><![CDATA[<p>A bug in uTorrent (which may or may not have been fixed) causes the <code>Added On</code> and <code>Completed On</code> dates to be incorrect after a reboot. If you are using fuzzy dates the affected torrents will appear to have been added/completed “less than a minute ago” or if you turned off fuzzy dates, you’ll see that the dates are set in the future.</p>
+
+<p>I’ve written a short ruby script that will correct those dates (more or less) on Windows. I’m sharing this as a <a href="https://gist.github.com/3701814">GitHub gist</a> for easy downloading.</p>
+
+<p>The post <a rel="nofollow" href="http://www.briantist.com/how-to/fix-incorrect-dates-in-utorrent/">Fix Incorrect Dates in uTorrent</a> first appeared on <a rel="nofollow" href="http://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
+		
+	</channel>
+</rss>

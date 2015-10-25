@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>DNS Manager Can&#39;t Set TXT Record to Expire</title>
+	
+	
+	<meta name="description" content="Delete this record when it becomes stale doesn&#39;t work for TXT records in DNS Manager console. Setting the resource record aging through PowerShell works.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>DNS Manager Can't Set TXT Record to Expire </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2014-08-25T20:34:26-04:00"><i class="fa fa-calendar"></i>
+		August 25, 2014
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0462bf6f-ca52-42e4-b967-9d4393bdf94c" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p>I finally got DNS scavenging configured in our environment. It’s working great, no big disasters. I was browsing the DNS manager (so much faster now that we got rid of those 6,000+ resource records we didn’t need) and I noticed two <code>TXT</code> records that I created as a test last week. I didn’t need them anymore, but instead of deleting them I thought I’d just set them to expire and let scavenging take care of it. Funny thing is, the setting just wouldn’t stick. No errors, nothing preventing me from doing it, it just kept reverting to static.</p>
+
+<a name="more"></a>
+
+<h2 id="reproducing-the-problem">Reproducing the Problem</h2>
+
+<p>Our DNS servers are still 2008 R2 so I tried it out in our 2012 test domain. I created a new text record from the DNS Manager console which makes it static by default.</p>
+
+<p><a href="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-static.png" rel="lightbox-dnstxt" title="DNS TXT Record Static"><img src="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-static-300x121.png" alt="dns-txt-aging-static" /></a></p>
+
+<p>From there, I can view the details of the record, and see that the <strong>Delete this record when it becomes stale</strong> checkbox is cleared. If I check it, then click <strong>Apply</strong> the Record time stamp box will fill with the date, like so:</p>
+
+<p><a href="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-details-timestamp.png" rel="lightbox-dnstxt" title="DNS TXT Aging Timestamp"><img src="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-details-timestamp-268x300.png" alt="dns-txt-aging-details-timestamp" /></a></p>
+
+<p>Great! Click <strong>OK</strong>, then go back to the list of records in DNS manager. It will still say <code>static</code>. Hm, if I look at the record’s properties again, it still shows the box checked and the time stamp, so I probably just have to refresh the view.</p>
+
+<p>Still says <code>static</code>.</p>
+
+<p>View the properties: the checkbox is cleared and the timestamp is gone, like I never set it in the first place!</p>
+
+<p><a href="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-details-blank.png" rel="lightbox-dnstxt" title="DNS TXT Aging Timestamp Blank"><img src="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-details-blank-268x300.png" alt="dns-txt-aging-details-blank" /></a></p>
+
+<h2 id="powershell-to-the-rescue">PowerShell to the Rescue</h2>
+
+<p>Luckily, we can fix this easily by setting this from PowerShell instead:</p>
+
+<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Import-Module</span> <span class="n">DnsServer</span>
+<span class="nb">Set-DnsServerResourceRecordAging</span> <span class="n">-ZoneName</span> <span class="n">dev</span><span class="p">.</span><span class="n">cshl</span><span class="p">.</span><span class="n">test</span> <span class="n">-NodeName</span> <span class="n">FancyText</span><span class="p">.</span><span class="n">dev</span><span class="p">.</span><span class="n">cshl</span><span class="p">.</span><span class="n">test</span></code></pre></div>
+
+<p>It will confirm that you want to make the change. You can use <code class="highlight language-powershell" data-lang="powershell"><span class="n">-Force</span></code> if you want to do it without prompting.</p>
+
+<p>Now I can refresh the console, view the properties of the resource record and see that the setting is actually sticking.</p>
+
+<p><a href="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-timestamp.png" rel="lightbox-dnstxt" title="DNS TXT Timestamp Set"><img src="/images/post/dns-manager-cant-set-txt-record-to-expire/dns-txt-aging-timestamp-300x121.png" alt="dns-txt-aging-timestamp" /></a></p>
+
+<h2 id="other-rr-types">Other RR Types?</h2>
+
+<p>So far, I haven’t tested this on other resource record types. It appears to be a bug in the DNS Manager MMC Snap-In. It definitely works with <code>A</code> and <code>PTR</code> records for me.</p>
+
+<p>If you notice this behavior on any other types, comment here so I can add them to the article.</p>
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/dns/">
+					dns <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/powershell/">
+					powershell <span>(10)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=DNS Manager Can't Set TXT Record to Expire&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/" title="Get-DnsServerResourceRecord returns duplicate records when a sub-domain matching the zone exists">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/how-to/splatting-psboundparameters-default-values-optional-parameters/" title="Splatting with $PSBoundParameters and Default Values for Optional Parameters">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = '0462bf6f-ca52-42e4-b967-9d4393bdf94c';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>How To Use jTDS NTLM Authentication in Confluence with SQL Server - briantist.com</title>
+	
+	
+	<meta name="description" content="How to configure Atlassian Confluence to use NTLM authentication against Microsoft SQL Server with the jTDS driver on Windows.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Use jTDS NTLM Authentication in Confluence with SQL Server </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2012-11-05T11:58:13-05:00"><i class="fa fa-calendar"></i>
+		November 05, 2012
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="bd8221f3-af92-424a-be81-ba4e46bf7b2b" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p>I run Atlassian’s Confluence in several organizations. It’s a great product and runs on many platforms. Being a Windows admin I tend to stick to the existing Microsoft stack where possible, so I typically run Confluence on Windows against Microsoft SQL Server. The jTDS driver that comes with Confluence wants to use a SQL server user and can’t use NTLM/Windows authentication out of the box. With a few simple changes, we can have Confluence using NTLM auth to connect to SQL Server.</p>
+
+<a name="more"></a>
+
+<h2 id="doesnt-microsoft-provide-a-jdbc-driver">Doesn’t Microsoft Provide a JDBC driver?</h2>
+
+<p>They sure do! I used this driver up until very recently. The Microsoft driver supports NTLM/Windows auth and failover partner (for database mirroring).</p>
+
+<p>Unfortunately, it’s not supported by Atlassian. It was working fine for a while, but after a recent upgrade, I noticed that the automatic backups stopped working. Then page comments were failing.</p>
+
+<p>After opening tickets with Atlassian, the determination was that there were bugs in Confluence that caused it not to work with Microsoft’s JDBC driver, but they insisted that they could not offer support for it.</p>
+
+<p>So back to jTDS I went. I still long for the failover partner functionality, but at least I got NTLM working again.</p>
+
+<h2 id="the-jtds-way">The jTDS Way</h2>
+
+<p>When I said that NTLM is not supported out of the box, let me clarify. The driver supports it just fine, but the copy that comes with Confluence doesn’t include the Windows DLL that is needed. We need to get the DLL, put it in place, change the connection string, and change the user that the Confluence service runs as.</p>
+
+<h3 id="create-a-windowsad-user">Create a Windows/AD User</h3>
+
+<p>Confluence will need to be running as a specific user that can authenticate against SQL server and access the Confluence database.</p>
+
+<p>If your SQL server is not on the same machine as Confluence, then both machines should be joined to the same Active Directory domain, and the user you create should be a domain user.</p>
+
+<p>When the user is created, make sure that:</p>
+
+<ul>
+  <li>
+    <p>The user is not prevented from logging into the server which runs Confluence (logon restrictions, etc.).</p>
+  </li>
+  <li>
+    <p>The user can log into SQL server.</p>
+  </li>
+  <li>
+    <p>The user has access to the Confluence database on SQL server.</p>
+  </li>
+</ul>
+
+<h3 id="download-jtds-for-ntlmauthdll">Download jTDS for ntlmauth.dll</h3>
+
+<ol>
+  <li>
+    <p>Head over to the <a href="http://sourceforge.net/projects/jtds/files/">jTDS download page</a> and grab the ZIP file.</p>
+  </li>
+  <li>
+    <p>Extract the ZIP and look at the directory structure.</p>
+  </li>
+  <li>
+    <p>There is an <code>x86</code> and an <code>x64</code> directory; choose the one that corresponds to your Confluence installation (if you’re running x86 Confluence on x64 Windows, choose x86).</p>
+  </li>
+  <li>
+    <p>Inside, there is an <code>SSO</code> directory, which contains <code>ntlmauth.dll</code>.</p>
+  </li>
+  <li>
+    <p>Copy this file into your Confluence installation’s <code>bin</code> directory.</p>
+  </li>
+</ol>
+
+<h3 id="change-the-configuration">Change the Configuration</h3>
+
+<ol>
+  <li>
+    <p>Browse to your Confluence data directory.</p>
+  </li>
+  <li>
+    <p>Edit <strong>confluence.cfg.xml</strong>.</p>
+  </li>
+  <li>
+    <dl>
+      <dt>Find the connection URL, which will look something like this:</dt>
+      <dd>
+        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.url&quot;</span><span class="nt">&gt;</span>jdbc:jtds:sqlserver://SQLSERVER:1433/ConfluenceDB<span class="nt">&lt;/property&gt;</span></code></pre></div>
+      </dd>
+    </dl>
+  </li>
+  <li>
+    <dl>
+      <dt>Change that line so that it looks like this:</dt>
+      <dd>
+        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.url&quot;</span><span class="nt">&gt;</span>jdbc:jtds:sqlserver://SQLSERVER:1433/ConfluenceDB;useNTLMv2=true;domain=CONTOSO<span class="nt">&lt;/property&gt;</span></code></pre></div>
+      </dd>
+    </dl>
+  </li>
+  <li>
+    <p>The <code>useNTLMv2</code> property is optional, but I am under the impression that it provides better security.</p>
+  </li>
+  <li>
+    <dl>
+      <dt>You’ll also find <code>username</code> and <code>password</code> fields:</dt>
+      <dd>
+        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.username&quot;</span><span class="nt">&gt;</span>theusername<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.password&quot;</span><span class="nt">&gt;</span>thepassword<span class="nt">&lt;/property&gt;</span></code></pre></div>
+      </dd>
+    </dl>
+  </li>
+  <li>You can remove those properties entirely, or comment them out.</li>
+</ol>
+
+<h3 id="changing-the-service-parameters">Changing the Service Parameters</h3>
+
+<p>To actually get Confluence running as the user you set up earlier, you need to tell the Windows service to run as the user. You can do this any way you like, such as through services.msc or the command line.</p>
+
+<p>I tend to run Confluence on Server Core when possible so I like to use the command line utility <code>sc.exe</code>:</p>
+
+<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">sc config <span class="s2">&quot;Confluence&quot;</span> obj<span class="o">=</span> <span class="s2">&quot;CONTOSO\ConfUser&quot;</span> password<span class="o">=</span> <span class="s2">&quot;thewinpass&quot;</span></code></pre></div>
+
+<p>The spaces between the <code>=</code> and the parameter are important! Or, with PowerShell:</p>
+
+<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$svc</span> <span class="p">=</span> <span class="nb">Get-WmiObject</span> <span class="n">Win32_Service</span> <span class="n">-Filter</span> <span class="s2">&quot;name=&#39;Confluence&#39;&quot;</span>
+<span class="nv">$svc</span><span class="p">.</span><span class="n">Change</span><span class="p">(</span><span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="s2">&quot;CONTOSO\ConfUser&quot;</span><span class="p">,</span> <span class="s2">&quot;thewinpass&quot;</span><span class="p">)</span></code></pre></div>
+
+<h3 id="testing-it-out">Testing it Out</h3>
+
+<p>At this point you can just restart the service and see if it works. If you would rather see some output and not have to dig through logs, you might consider testing this by running confluence manually.</p>
+
+<p>Just remember that you have to run it as the user you’re setting the service to, not as your administrative user, so don’t just go double clicking <code>startup.bat</code> to try it out.</p>
+
+<p>You can run a command prompt as your new Windows user to help with this:</p>
+
+<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">runas <span class="n">/user:CONTOSO\ConfUser</span> cmd</code></pre></div>
+
+<p>This will prompt you for the password of the new user and then open a command prompt as that user. From there, you can run the startup command for Confluence and see what’s going on.</p>
+
+<h3 id="other-considerations">Other Considerations</h3>
+
+<p>Since the data directory is kept intact during an upgrade, you shouldn’t have to worry about the config change during an upgrade, but <code>ntlmauth.dll</code> will be overwritten and need to be replaced. Refer to my post about <a href="/how-to/confluence-jira-windows-upgrades/">Confluence and JIRA upgrades</a> for an easy remedy.</p>
+
+<p>To my knowledge there is no way to get that database mirroring failover functionality with jTDS. If you know of a way, I’d love to hear from you!</p>
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/atlassian/">
+					atlassian <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/confluence/">
+					confluence <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/jtds/">
+					jtds <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/sql-server/">
+					sql server <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Use jTDS NTLM Authentication in Confluence with SQL Server&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/how-to/send-mail-multiple-recipients-ruby-pony/" title="Send Mail to Multiple Recipients with Ruby & Pony">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/errors/dfs-properties-cannot-be-set-namespace-server-access-denied/" title="DFS: Properties cannot be set on the namespace server - Access is denied">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = 'bd8221f3-af92-424a-be81-ba4e46bf7b2b';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

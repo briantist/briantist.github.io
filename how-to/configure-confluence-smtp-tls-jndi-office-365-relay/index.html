@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>Configure Confluence SMTP with TLS via JNDI for Office 365 Relay</title>
+	
+	
+	<meta name="description" content="How To Fix: javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection in Confluence JNDI SMTP connection for TLS - Useful for Office 365.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'bs-UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><a href="/tag/"><i class="fa fa-tags"></i>&nbsp;Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			
+			<li><a href="/tag/"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Configure Confluence SMTP with TLS via JNDI for Office 365 Relay </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+			
+		
+		<time datetime="2013-12-08T23:58:21-05:00"><i class="fa fa-calendar"></i>
+		December 08, 2013
+		 </time>
+		
+		
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="f5062a60-5dab-47fa-933f-bfd55e013bf8" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p>or</p>
+
+<h2 id="how-to-fixjavaxnetsslsslexception-unrecognized-ssl-message-plaintext-connection-in-confluence-jndi">How To Fix: javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection in Confluence JNDI</h2>
+
+<p>I’ve been doing Exchange to Office 365 migrations lately and that means on-premises applications and devices can’t use the local Exchange server to send mail anymore.</p>
+
+<p>Your options are to use the credentials of an Office 365 mailbox to send mail, set up a local SMTP relayer, or use a third-party SMTP service.</p>
+
+<p>If you’ve opted to use an Office 365 login to send mail via SMTP, then you must use TLS, so the applications/devices sending mail must support sending mail with TLS on port 587.</p>
+
+<p>This article focuses on Atlassian Confluence but may apply to other java applications using JNDI to configure mail.</p>
+
+<h2 id="atlassian-confluence-secure-smtp-and-jndi">Atlassian Confluence, Secure SMTP, and JNDI</h2>
+
+<p>Confluence has no way to set up secure SMTP with SSL or TLS from within the administration, so unfortunately you’re forced to configure Confluence to use a JNDI Location for SMTP. This involves moving around JARs and changing configuration files, which will end up slowing down your upgrades (see my script to <a href="/how-to/confluence-jira-windows-upgrades/">make Confluence upgrades easier</a>).</p>
+
+<a name="more"></a>
+
+<h3 id="start-with-the-existing-gmail-configuration">Start with the existing GMail configuration:</h3>
+
+<p>Most of what you need is <a href="https://confluence.atlassian.com/display/DOC/Setting+Up+a+Mail+Session+for+the+Confluence+Distribution" target="_blank">already written for using gmail</a>, but gmail uses SSL on SMTP, and these exact settings will fail if you use it with SMTP that starts plain and changes to secure with STARTTLS.</p>
+
+<p>If you use it directly, you’ll get an error like you see at the top of the article:</p>
+
+<blockquote>
+  <p>javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection</p>
+</blockquote>
+
+<p>This is because the existing settings include this line:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">mail.smtp.socketFactory.class=&quot;javax.net.ssl.SSLSocketFactory&quot;</code></pre></div>
+
+<p>That line specifically forces SSL to be used, so you end up trying to connect to an SMTP server expecting plain text, and sending encrypted data to it so it doesn’t know what you’re talking about.</p>
+
+<p><strong>Removing that line is all you need to do differently aside from changing the SMTP host, port, etc.</strong> So if you’ve done those steps, you don’t need what you see below.</p>
+
+<h2 id="step-by-step">Step by Step</h2>
+
+<p>The entire process (mostly copied from the above article) goes like this:</p>
+
+<ol>
+  <li>
+    <p>Stop Confluence.</p>
+  </li>
+  <li>
+    <p>Move (<strong>don’t copy</strong>) <code>activation-1.0.2.jar</code> and <code>mail-1.4.1.jar</code> from <code>&lt;confluence-install&gt;/confluence/WEB-INF/lib</code> to <code>&lt;confluence-install&gt;/lib</code>.<br />
+<strong>Note:</strong> The version numbers on these jar files may vary, but that should not matter.<br />
+<strong>As of Confluence 5.2.3, <code>activation-1.0.2.jar</code> no longer exists, and does not need to be moved or downloaded.</strong></p>
+  </li>
+  <li>
+    <dl>
+      <dt>Add the following to your <code>server.xml</code> file found in <code>&lt;confluence-install&gt;/conf/</code> (add it just before the <code class="highlight language-xml" data-lang="xml"><span class="nt">&lt;/Context&gt;</span></code> tag – <strong>This is the modified version for Office 365</strong>):</dt>
+      <dd>
+        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">&quot;mail/Office365&quot;</span>
+<span class="na">auth=</span><span class="s">&quot;Container&quot;</span>
+<span class="na">type=</span><span class="s">&quot;javax.mail.Session&quot;</span>
+<span class="na">mail.smtp.host=</span><span class="s">&quot;smtp.office365.com&quot;</span>
+<span class="na">mail.smtp.port=</span><span class="s">&quot;587&quot;</span>
+<span class="na">mail.smtp.auth=</span><span class="s">&quot;true&quot;</span>
+<span class="na">mail.smtp.user=</span><span class="s">&quot;yourEmailAddress@yourOffice365.com&quot;</span>
+<span class="na">password=</span><span class="s">&quot;yourPassword&quot;</span>
+<span class="na">mail.smtp.starttls.enable=</span><span class="s">&quot;true&quot;</span>
+<span class="na">mail.transport.protocol=</span><span class="s">&quot;smtps&quot;</span>
+<span class="nt">/&gt;</span></code></pre></div>
+      </dd>
+    </dl>
+  </li>
+  <li>
+    <p>Restart Confluence.</p>
+  </li>
+  <li>
+    <p>Choose the <strong>cog icon</strong> <img src="https://confluence.atlassian.com/download/attachments/157679812/Cog.png?version=1&amp;modificationDate=1361250253653&amp;api=v2" alt="cog icon" /> at top right of the screen, then choose <strong>Confluence Admin.</strong></p>
+  </li>
+  <li>
+    <p>Choose <strong>Mail Servers.</strong></p>
+  </li>
+  <li>
+    <p>Choose either <strong>Edit an existing configuration</strong>, or <strong>Add a new SMTP mail server.</strong></p>
+  </li>
+  <li>
+    <dl>
+      <dt>Edit the server settings as necessary, and set the <strong>JNDI Location</strong> as:</dt>
+      <dd>
+        <div class="highlight"><pre><code class="language-text" data-lang="text">java:comp/env/mail/Office365</code></pre></div>
+        <p><br />
+Note that the JNDI Location is case sensitive and must match the resource name specified in <code>server.xml</code>.</p>
+      </dd>
+    </dl>
+  </li>
+  <li>Submit, and send a test email.</li>
+</ol>
+
+<p>That should be it!</p>
+
+<h3 id="using-this-info-for-a-different-application-please-tell-me">Using this info for a different application? Please tell me!</h3>
+
+<p>If you found this useful for something other than Confluence, I’m interested in hearing about it and probably listing it in the article.</p>
+
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/atlassian/">
+					atlassian <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/confluence/">
+					confluence <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/exchange/">
+					Exchange <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/office-365/">
+					office-365 <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/smtp/">
+					smtp <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Configure Confluence SMTP with TLS via JNDI for Office 365 Relay&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/errors/junk-mail-not-syncing-android-exchange-activesync/" title="Junk Mail Not Syncing on Android Exchange ActiveSync">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/errors/remote-desktop-gateway-server-temporarily-unavailable-sbs-2011-after-uninstalling-exchange-server/" title="Remote Desktop Gateway Server is Temporarily Unavailable on SBS 2011 After Uninstalling Exchange Server">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'briantistcomimport1';
+    
+    var disqus_identifier = 'f5062a60-5dab-47fa-933f-bfd55e013bf8';
+    
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+    
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>
