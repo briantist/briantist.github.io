@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
 	<url>
-		<loc>http://www.briantist.com/</loc>
+		<loc>https://www.briantist.com/</loc>
 		<changefreq>weekly</changefreq>
 		<priority>1</priority>
-		<lastmod>2015-10-25T19:56:40-04:00</lastmod>
+		<lastmod>2015-10-25T20:30:50-04:00</lastmod>
 	</url>
 	
 	
 	
 	
 	<url>
-		<loc>http://www.briantist.com/about-me/</loc>
+		<loc>https://www.briantist.com/about-me/</loc>
 		<changefreq>monthly</chagefreq>
 		<lastmod>2012-09-12T17:23:44-04:00</lastmod>
 	</url>
@@ -19,7 +19,7 @@
 	
 	
 	<url>
-		<loc>http://www.briantist.com/contact-me/</loc>
+		<loc>https://www.briantist.com/contact-me/</loc>
 		<changefreq>monthly</chagefreq>
 		<lastmod>2012-09-09T17:21:49-04:00</lastmod>
 	</url>

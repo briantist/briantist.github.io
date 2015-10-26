@@ -2,15 +2,15 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	
 	<sitemap>
-		<loc>http://www.briantist.com/sitemap_page.xml</loc>
+		<loc>https://www.briantist.com/sitemap_page.xml</loc>
 	</sitemap>
 	
 	<sitemap>
-		<loc>http://www.briantist.com/sitemap_post.xml</loc>
+		<loc>https://www.briantist.com/sitemap_post.xml</loc>
 	</sitemap>
 	
 	<sitemap>
-		<loc>http://www.briantist.com/sitemap_tag.xml</loc>
+		<loc>https://www.briantist.com/sitemap_tag.xml</loc>
 	</sitemap>
 	
 </sitemapindex>
