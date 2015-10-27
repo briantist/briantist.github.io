@@ -5,7 +5,7 @@
 		<description>Four million lines of BASIC</description>
 		<link>https://www.briantist.com/</link>
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Sun, 25 Oct 2015 22:35:10 -0400</lastBuildDate>
+		<lastBuildDate>Mon, 26 Oct 2015 21:08:19 -0400</lastBuildDate>
 		<language>en-us</language>
 		
 			<item>
@@ -50,7 +50,7 @@
 			</item>
 		
 			<item>
-				<title>DNS Manager Can't Set TXT Record to Expire</title>
+				<title>DNS Manager Can&#39;t Set TXT Record to Expire</title>
 				<pubDate>Mon, 25 Aug 2014 20:34:26 -0400</pubDate>
 				<link>https://www.briantist.com/errors/dns-manager-cant-set-txt-record-to-expire/</link>
 				<comments>https://www.briantist.com/errors/dns-manager-cant-set-txt-record-to-expire/#disqus_thread</comments>
@@ -250,7 +250,7 @@ Please check your internet connection.</p>
 			</item>
 		
 			<item>
-				<title>Send Mail to Multiple Recipients with Ruby & Pony - briantist.com</title>
+				<title>Send Mail to Multiple Recipients with Ruby &amp; Pony - briantist.com</title>
 				<pubDate>Mon, 22 Oct 2012 21:38:07 -0400</pubDate>
 				<link>https://www.briantist.com/how-to/send-mail-multiple-recipients-ruby-pony/</link>
 				<comments>https://www.briantist.com/how-to/send-mail-multiple-recipients-ruby-pony/#disqus_thread</comments>
