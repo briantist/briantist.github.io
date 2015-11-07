@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2012-10-22T21:38:07-04:00"><i class="fa fa-calendar"></i>
 		October 22, 2012
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="776a6cb4-ac26-4b51-bb17-3839ec739f2e" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -389,11 +393,11 @@
 
 <p>With a little experimentation, I found that you can simply separate the recipients with a comma, like so:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Pony</span><span class="o">.</span><span class="n">mail</span> <span class="p">(</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s1">&#39;recipient1@gmail.com,foo@bar.biz&#39;</span> <span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Pony</span><span class="o">.</span><span class="n">mail</span> <span class="p">(</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s1">&#39;recipient1@gmail.com,foo@bar.biz&#39;</span> <span class="p">)</span> </code></pre></figure>
 
 <p>This works for the <code>To</code> field, as well as the <code>CC</code> and <code>BCC</code> fields. You can simplify this, especially when the recipients are obtained at run time, by using an array of recipients with the <code class="highlight language-ruby" data-lang="ruby"><span class="n">join</span></code> method.</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">to_addresses</span> <span class="o">=</span> <span class="o">[</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">to_addresses</span> <span class="o">=</span> <span class="o">[</span>
 <span class="s1">&#39;addr1@gmail.com&#39;</span> <span class="p">,</span>
 <span class="s1">&#39;addr2@hotmail.com&#39;</span> <span class="p">,</span>
 <span class="s1">&#39;addr3@aol.com&#39;</span>
@@ -407,13 +411,15 @@
 <span class="no">Pony</span><span class="o">.</span><span class="n">mail</span> <span class="p">(</span>
 <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="n">to_addresses</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="p">,</span>
 <span class="ss">:cc</span> <span class="o">=&gt;</span> <span class="n">cc_addresses</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="p">)</span></code></pre></div>
+<span class="p">)</span>
+
+ </code></pre></figure>
 
 <h2 id="update">Update:</h2>
 
 <p>As <a href="http://jcg.wtf" target="_blank">Jeff</a> points out below, you can actually use an array directly! That makes the above simpler:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">to_addresses</span> <span class="o">=</span> <span class="o">[</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">to_addresses</span> <span class="o">=</span> <span class="o">[</span>
 <span class="s1">&#39;addr1@gmail.com&#39;</span> <span class="p">,</span>
 <span class="s1">&#39;addr2@hotmail.com&#39;</span> <span class="p">,</span>
 <span class="s1">&#39;addr3@aol.com&#39;</span>
@@ -427,7 +433,9 @@
 <span class="no">Pony</span><span class="o">.</span><span class="n">mail</span> <span class="p">(</span>
 <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="n">to_addresses</span> <span class="p">,</span>
 <span class="ss">:cc</span> <span class="o">=&gt;</span> <span class="n">cc_addresses</span>
-<span class="p">)</span></code></pre></div>
+<span class="p">)</span>
+
+ </code></pre></figure>
 
 <p>This will certainly be my go-to method from now on. Thanks <a href="http://jcg.wtf" target="_blank">Jeff</a>!</p>
 

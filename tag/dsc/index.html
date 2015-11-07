@@ -3,7 +3,7 @@
 <head>
 		<meta charset="utf-8">
 	
-	<title>Posts Tagged &quot;server-2012&quot;</title>
+	<title>Posts Tagged &quot;dsc&quot;</title>
 	
 	
 	<meta name="author" content="Brian Scholer">
@@ -366,7 +366,7 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Posts Tagged "server-2012" </h1>
+  <h1>Posts Tagged "dsc" </h1>
 </div>
 <div class="page-content">
   
@@ -376,109 +376,112 @@
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <article class="home">
-    <h2><a class="archive_list_article_link" href='/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/'>Windows Server 2012, VMware ESXi, and Strange Permissions Errors - Removable Storage Auditing what?</a></h2>
+    <h2><a class="archive_list_article_link" href='/how-to/use-duplicate-dsc-script-resources-in-loop/'>Use Variables in a DSC Script Resource</a></h2>
     	 <div class="byline">
 		
-		<time datetime="2013-04-08T20:46:13-04:00"><i class="fa fa-calendar"></i>
-		April 08, 2013
+		<time datetime="2015-11-06T19:41:00-05:00"><i class="fa fa-calendar"></i>
+		November 06, 2015
 		 </time>
 		
-		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="81ce00e1-8972-4c57-ad81-0978eb75535c" href="/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/#disqus_thread">Comments</a></span>
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a83baaa5-badf-41b5-9f19-fd9473b2c75e" href="/how-to/use-duplicate-dsc-script-resources-in-loop/#disqus_thread">Comments</a></span>
 	</div>
 	
 			 
 
   <div class="post-content">
-    <p><strong>Update:</strong> There is now an <a href="https://support.microsoft.com/en-us/kb/2811670" target="_blank">update available via KB2811670 from Microsoft</a> to address this (<a href="#comment-2290082797">thanks Owen</a>).</p>
+    
+<p>Every PowerShell Desired State Configuration resource must have at least one <code>Key</code> property that’s used to uniquely identify it within a single configuration. For the <a href="https://technet.microsoft.com/en-us/library/dn282130.aspx" target="_blank">DSC <code>Script</code> Resource</a> the keys are the <code>GetScript</code>, <code>TestScript</code>, and <code>SetScript</code> properties. Basically this means that each <code>Script</code> resource can’t contain the same content. Makes sense on the surface, but when you consider variable substitution, and looping through collections in <code>$ConfigurationData</code>, it’s easy to come up with a configuration that ends up with this error:</p>
 
-<p>I’ve been getting ready to roll out Windows Server 2012 to be used for new production hosts, and one of the first machines I tried to deploy was a web server. I created my VM, installed Windows 2012, got IIS all set up. This web site was to be used for uploading and serving files, so I added a data disk and put the web site on this drive. The web app runs on Perl so I installed that, configured it, and no matter what I kept getting <code>500.19</code> errors. I don’t set up Perl all that often on IIS, and I thought for sure that it must have been some quirk in the process that I was missing.</p>
+<blockquote>
+  <p>Add-NodeKeys : The key properties combination ‘<em>your script here</em>’ is duplicated for keys ‘GetScript,SetScript,TestScript’ of resource ‘Script’ in node ‘<em>nodename</em>’. Please make sure key properties are unique for each resource in a node.</p>
+</blockquote>
 
-<p>Instead it turned out to be an unholy combination of factors with the way that VMware presents disk drives to Windows and how Windows 8 / Server 2012 handles removable drives. It effects things other than IIS too. The symptoms are strange, the errors are unhelpful, and the fixes aren’t obvious.</p>
+<p>This is quite annoying, but there are ways around it so you don’t have to resort to manually unrolling your loop.</p>
 
-<a class="read-more" href="/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/#more">Continue Reading &raquo;</a>
+<a class="read-more" href="/how-to/use-duplicate-dsc-script-resources-in-loop/#more">Continue Reading &raquo;</a>
   </div>
   </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

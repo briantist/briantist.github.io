@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2012-09-16T22:29:44-04:00"><i class="fa fa-calendar"></i>
 		September 16, 2012
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="ebe8b75d-56f2-4ae4-82df-1fbd4fb5ffdb" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -472,7 +476,7 @@
   <li>Browse to <code>Policies &gt; Administrative Templates &gt; Windows Components &gt; Windows Remote Management (WinRM) &gt; WinRM Service</code></li>
   <li>Depending on your operating system: <br />
 <strong>Server 2008 R2 and later</strong>: Open the <code>Allow Remote Server management through WinRM</code> policy setting.<br />
-<strong>Server 2008 and earlier</strong>: Open the “Allow automatic configuration of listeners” policy setting.</li>
+<strong>Server 2008 and earlier</strong>: Open the <code>Allow automatic configuration of listeners</code> policy setting.</li>
   <li>Set the Policy to <code>Enabled</code>.</li>
   <li>Set the <strong>IPv4</strong> and <strong>IPv6</strong> filters to <code>*</code> unless you need something specific there (check out the help on the right).</li>
 </ol>
@@ -555,7 +559,7 @@
   <li>The following WQL query will match Windows Vista, Windows 2008, and lower operating systems:</li>
 </ol>
 
-<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">Win32_OperatingSystem</span> <span class="k">WHERE</span> <span class="k">Version</span> <span class="k">LIKE</span> <span class="ss">&quot;6.0%&quot;</span> <span class="k">OR</span> <span class="k">Version</span> <span class="k">LIKE</span> <span class="ss">&quot;5.%&quot;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">Win32_OperatingSystem</span> <span class="k">WHERE</span> <span class="k">Version</span> <span class="k">LIKE</span> <span class="ss">&quot;6.0%&quot;</span> <span class="k">OR</span> <span class="k">Version</span> <span class="k">LIKE</span> <span class="ss">&quot;5.%&quot;</span> </code></pre></figure>
 
 <h3 id="create-the-gpo">Create the GPO</h3>
 
@@ -603,7 +607,7 @@
 			 
 				<li>
 					<a href="/tag/powershell/">
-					powershell <span>(10)</span>
+					powershell <span>(11)</span>
 					,
 					</a>
 				</li>

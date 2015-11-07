@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2014-09-09T19:05:10-04:00"><i class="fa fa-calendar"></i>
 		September 09, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="45672ac2-38b8-40e5-be6b-b3583371f206" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -392,7 +396,7 @@
 
 <p>I’ve created a small code snippet which alleviates this. It finds the parameters of your script or function, then gets the actual current values (you can override the supplied parameter values), and puts them all in a <code class="highlight language-powershell" data-lang="powershell"><span class="no">[hashtable]</span></code>.</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{}</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{}</span>
 <span class="k">foreach</span><span class="p">(</span><span class="nv">$h</span> <span class="k">in</span> <span class="nv">$MyInvocation</span><span class="p">.</span><span class="n">MyCommand</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">GetEnumerator</span><span class="p">())</span> <span class="p">{</span>
     <span class="k">try</span> <span class="p">{</span>
         <span class="nv">$key</span> <span class="p">=</span> <span class="nv">$h</span><span class="p">.</span><span class="n">Key</span>
@@ -403,7 +407,7 @@
         <span class="nb">Write-Verbose</span> <span class="s2">&quot;$key =&gt; &#39;$val&#39;&quot;</span>
         <span class="nv">$params</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="p">=</span> <span class="nv">$val</span>
     <span class="p">}</span> <span class="k">catch</span> <span class="p">{}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 <h2 id="details">Details</h2>
 
@@ -421,7 +425,7 @@
 
 <p>Here’s a complete example with 2 functions.</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Test-Params</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Test-Params</span> <span class="p">{</span>
 <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
 <span class="k">param</span><span class="p">(</span>
     <span class="p">[</span><span class="k">Parameter</span><span class="p">()]</span>
@@ -499,7 +503,7 @@
 
 <span class="nb">Test-Params</span> <span class="n">-Optional1</span> <span class="n">22</span> <span class="n">-Mandatory3</span> <span class="n">55</span>
 
-<span class="nb">Test-Params</span> <span class="n">-Optional1</span> <span class="n">22</span> <span class="n">-Mandatory3</span> <span class="n">55</span> <span class="n">-DoThing</span></code></pre></div>
+<span class="nb">Test-Params</span> <span class="n">-Optional1</span> <span class="n">22</span> <span class="n">-Mandatory3</span> <span class="n">55</span> <span class="n">-DoThing</span></code></pre></figure>
 
 <h3 id="notes">Notes</h3>
 
@@ -507,14 +511,14 @@
 
 <p>The output of the above script is:</p>
 
-<div class="highlight"><pre><code class="language-text" data-lang="text">22
+<figure class="highlight"><pre><code class="language-text" data-lang="text">22
 Value2
 55
 100
 22
 Value2
 110
-100</code></pre></div>
+100</code></pre></figure>
 
 <p>Happy scripting!</p>
 
@@ -529,7 +533,7 @@ Value2
 			 
 				<li>
 					<a href="/tag/powershell/">
-					powershell <span>(10)</span>
+					powershell <span>(11)</span>
 					
 					</a>
 				</li>

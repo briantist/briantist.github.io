@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2013-12-08T23:58:21-05:00"><i class="fa fa-calendar"></i>
 		December 08, 2013
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="f5062a60-5dab-47fa-933f-bfd55e013bf8" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -412,7 +416,7 @@
 
 <p>This is because the existing settings include this line:</p>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml">mail.smtp.socketFactory.class=&quot;javax.net.ssl.SSLSocketFactory&quot;</code></pre></div>
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">mail.smtp.socketFactory.class=&quot;javax.net.ssl.SSLSocketFactory&quot;</code></pre></figure>
 
 <p>That line specifically forces SSL to be used, so you end up trying to connect to an SMTP server expecting plain text, and sending encrypted data to it so it doesn’t know what you’re talking about.</p>
 
@@ -435,7 +439,7 @@
     <dl>
       <dt>Add the following to your <code>server.xml</code> file found in <code>&lt;confluence-install&gt;/conf/</code> (add it just before the <code class="highlight language-xml" data-lang="xml"><span class="nt">&lt;/Context&gt;</span></code> tag – <strong>This is the modified version for Office 365</strong>):</dt>
       <dd>
-        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">&quot;mail/Office365&quot;</span>
+        <figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">&quot;mail/Office365&quot;</span>
 <span class="na">auth=</span><span class="s">&quot;Container&quot;</span>
 <span class="na">type=</span><span class="s">&quot;javax.mail.Session&quot;</span>
 <span class="na">mail.smtp.host=</span><span class="s">&quot;smtp.office365.com&quot;</span>
@@ -445,7 +449,7 @@
 <span class="na">password=</span><span class="s">&quot;yourPassword&quot;</span>
 <span class="na">mail.smtp.starttls.enable=</span><span class="s">&quot;true&quot;</span>
 <span class="na">mail.transport.protocol=</span><span class="s">&quot;smtps&quot;</span>
-<span class="nt">/&gt;</span></code></pre></div>
+<span class="nt">/&gt;</span></code></pre></figure>
       </dd>
     </dl>
   </li>
@@ -465,7 +469,7 @@
     <dl>
       <dt>Edit the server settings as necessary, and set the <strong>JNDI Location</strong> as:</dt>
       <dd>
-        <div class="highlight"><pre><code class="language-text" data-lang="text">java:comp/env/mail/Office365</code></pre></div>
+        <figure class="highlight"><pre><code class="language-text" data-lang="text">java:comp/env/mail/Office365</code></pre></figure>
         <p><br />
 Note that the JNDI Location is case sensitive and must match the resource name specified in <code>server.xml</code>.</p>
       </dd>

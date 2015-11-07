@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
 	
 	<url>
+		<loc>https://www.briantist.com/how-to/use-duplicate-dsc-script-resources-in-loop/</loc>
+		<changefreq>monthly</changefreq>
+		<lastmod>2015-11-06T19:41:00-05:00</lastmod>
+	</url>
+	
+	<url>
 		<loc>https://www.briantist.com/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/</loc>
 		<changefreq>monthly</changefreq>
 		<lastmod>2015-08-17T18:40:33-04:00</lastmod>

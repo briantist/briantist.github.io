@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2014-04-04T15:53:08-04:00"><i class="fa fa-calendar"></i>
 		April 04, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="054990fa-390e-4cce-bd75-97ea7014fd3b" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -410,13 +414,13 @@
 
 <p>So I set out to find all the junctions since that is the most likely type of reparse point I would have in this collection:</p>
 
-<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">dir <span class="n">/AL</span> <span class="n">/S</span> <span class="s2">&quot;B:\&quot;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">dir <span class="n">/AL</span> <span class="n">/S</span> <span class="s2">&quot;B:\&quot;</span> </code></pre></figure>
 
 <p>Lucky for me it found the offender very early in what would have been a long walk of the directory structure. A junction referencing an old volume with a different drive letter (this file system was cloned).</p>
 
 <p>As it happens, it was an old <code>DfsrPrivate</code> folder from an earlier attempt at DFSReplication at a deeper folder level. A quick delete was all I needed:</p>
 
-<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">rd <span class="n">/S</span> <span class="n">/Q</span> <span class="s2">&quot;B:\Path\To\DfsrPrivate&quot;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">rd <span class="n">/S</span> <span class="n">/Q</span> <span class="s2">&quot;B:\Path\To\DfsrPrivate&quot;</span> </code></pre></figure>
 
 <p>I was worried at this point that I would have to export the entire database again, but luckily, that was not the case! The import worked from that point on.</p>
 
@@ -440,7 +444,7 @@
 			 
 				<li>
 					<a href="/tag/powershell/">
-					powershell <span>(10)</span>
+					powershell <span>(11)</span>
 					
 					</a>
 				</li>

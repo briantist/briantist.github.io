@@ -179,6 +179,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -199,6 +203,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -366,13 +374,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2015-08-17T18:40:33-04:00"><i class="fa fa-calendar"></i>
 		August 17, 2015
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="4b360992-2ad8-47b6-a433-8b51b8b29c00" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -399,7 +403,7 @@
 
 <p>Here is the class definition in C#:</p>
 
-<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp">    <span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
     <span class="k">using</span> <span class="nn">System.Net</span><span class="p">;</span>
     <span class="k">using</span> <span class="nn">System.Net.Security</span><span class="p">;</span>
     <span class="k">using</span> <span class="nn">System.Security.Cryptography.X509Certificates</span><span class="p">;</span>
@@ -427,7 +431,7 @@
                 <span class="n">ServicePointManager</span><span class="p">.</span><span class="n">ServerCertificateValidationCallback</span> <span class="p">=</span> <span class="n">funcs</span><span class="p">.</span><span class="n">Pop</span><span class="p">();</span>
             <span class="p">}</span>
         <span class="p">}</span>
-    <span class="p">}</span></code></pre></div>
+    <span class="p">}</span></code></pre></figure>
 
 <p>Now when you call <code class="highlight language-csharp" data-lang="csharp"><span class="n">OverrideValidation</span><span class="p">()</span></code> it stores the existing value in a stack. When you call <code class="highlight language-csharp" data-lang="csharp"><span class="n">RestoreValidation</span><span class="p">()</span></code> it simply pops the last value off the stack and sets the callback again. Using a stack makes it easier to nest calls in the client code without worrying about whether you’re restoring validation when a previous call expects it to be off.</p>
 
@@ -435,19 +439,19 @@
 
 <p>Adding a C# class definition is very straightforward in PowerShell using the <a href="https://technet.microsoft.com/en-us/library/Hh849914.aspx" target="_blank"><code class="highlight language-powershell" data-lang="powershell"><span class="nb">Add-Type</span></code> cmdlet</a>, so in this example, <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$definition</span></code> is a string consisting of the above code:</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Add-Type</span> <span class="nv">$definiton</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Add-Type</span> <span class="nv">$definiton</span> </code></pre></figure>
 
 <p>To use the new object:</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-WebRequest</span> <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">badsslhost</span> <span class="n">-UseBasicParsing</span> <span class="c"># fail</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-WebRequest</span> <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">badsslhost</span> <span class="n">-UseBasicParsing</span> <span class="c"># fail</span>
 <span class="no">[SSLValidator]</span><span class="p">::</span><span class="n">OverrideValidation</span><span class="p">()</span>
 <span class="nb">Invoke-WebRequest</span> <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">badsslhost</span> <span class="n">-UseBasicParsing</span> <span class="c"># success</span>
 <span class="no">[SSLValidator]</span><span class="p">::</span><span class="n">RestoreValidation</span><span class="p">()</span>
-<span class="nb">Invoke-WebRequest</span> <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">badsslhost</span> <span class="n">-UseBasicParsing</span> <span class="c"># fail</span></code></pre></div>
+<span class="nb">Invoke-WebRequest</span> <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">badsslhost</span> <span class="n">-UseBasicParsing</span> <span class="c"># fail</span></code></pre></figure>
 
 <p>And in the context I was describing (a function):</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-SomeResource</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-SomeResource</span> <span class="p">{</span>
 <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
 <span class="k">param</span><span class="p">(</span>
     <span class="no">[System.Uri]</span>
@@ -468,7 +472,7 @@
             <span class="no">[SSLValidator]</span><span class="p">::</span><span class="n">RestoreValidation</span><span class="p">()</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 
 	  </div>
@@ -482,7 +486,7 @@
 			 
 				<li>
 					<a href="/tag/powershell/">
-					powershell <span>(10)</span>
+					powershell <span>(11)</span>
 					
 					</a>
 				</li>
@@ -524,7 +528,7 @@
 		  <li class="previous"><a href="/how-to/test-for-verbose-in-powershell/" title="Test for Verbose in Powershell">&larr; Previous</a></li>
 		  
 		  
-			<li class="next disabled"><a>Next &rarr;</a>
+		  <li class="next"><a href="/how-to/use-duplicate-dsc-script-resources-in-loop/" title="Use Variables in a DSC Script Resource">Next &rarr;</a></li>
 		  
 		</ul>
 

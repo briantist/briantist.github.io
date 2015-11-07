@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2014-12-22T15:21:21-05:00"><i class="fa fa-calendar"></i>
 		December 22, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="73d3fad2-11b7-4802-9648-4c3f763979cc" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -434,11 +438,11 @@ Valid values:
 
 <p>So in order to test, you can just check the current value of <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$VerbosePreference</span></code> to see which of the 4 states it’s in. Or a more simple boolean check might look like this:</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$VerbosePreference</span> <span class="o">-ne</span> <span class="no">[System.Management.Automation.ActionPreference]</span><span class="p">::</span><span class="n">SilentlyContinue</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$VerbosePreference</span> <span class="o">-ne</span> <span class="no">[System.Management.Automation.ActionPreference]</span><span class="p">::</span><span class="n">SilentlyContinue</span></code></pre></figure>
 
 <p>Before realizing this, I came up with another one-liner:</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="no">[bool]</span><span class="p">(</span><span class="nb">Write-Verbose</span> <span class="p">(</span><span class="no">[String]</span><span class="p">::</span><span class="n">Empty</span><span class="p">)</span> <span class="n">4</span><span class="p">&gt;&amp;</span><span class="n">1</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="no">[bool]</span><span class="p">(</span><span class="nb">Write-Verbose</span> <span class="p">(</span><span class="no">[String]</span><span class="p">::</span><span class="n">Empty</span><span class="p">)</span> <span class="n">4</span><span class="p">&gt;&amp;</span><span class="n">1</span><span class="p">)</span></code></pre></figure>
 
 <p>This one works by writing something on the verbose stream, redirecting it to stdout, and then casting it to <code class="highlight language-powershell" data-lang="powershell"><span class="no">[bool]</span></code>. This check is nice because it implicitly uses the same criteria as <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Write-Verbose</span></code> does. It still feels a bit wrong to me though.</p>
 
@@ -446,17 +450,17 @@ Valid values:
 
 <p>Either of these can be wrapped into a small function:</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Test-Verbose</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Test-Verbose</span> <span class="p">{</span>
 <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
 <span class="k">param</span><span class="p">()</span>
 	<span class="no">[bool]</span><span class="p">(</span><span class="nb">Write-Verbose</span> <span class="p">(</span><span class="no">[String]</span><span class="p">::</span><span class="n">Empty</span><span class="p">)</span> <span class="n">4</span><span class="p">&gt;&amp;</span><span class="n">1</span><span class="p">)</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Test-Verbose</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Test-Verbose</span> <span class="p">{</span>
 <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
 <span class="k">param</span><span class="p">()</span>
 	<span class="no">[System.Management.Automation.ActionPreference]</span><span class="p">::</span><span class="n">SilentlyContinue</span> <span class="o">-ne</span> <span class="nv">$VerbosePreference</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 <p>From what I can tell, both of these tests work in all of the following situations:</p>
 
@@ -491,7 +495,7 @@ Valid values:
 			 
 				<li>
 					<a href="/tag/powershell/">
-					powershell <span>(10)</span>
+					powershell <span>(11)</span>
 					
 					</a>
 				</li>

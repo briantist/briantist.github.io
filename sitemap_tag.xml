@@ -22,7 +22,7 @@
 	<url>
 		<loc>https://www.briantist.com/tag/powershell/</loc>
 		<changefreq>weekly</changefreq>
-		<lastmod>2015-08-17T18:40:33-04:00</lastmod>
+		<lastmod>2015-11-06T19:41:00-05:00</lastmod>
 	</url>
 	
 	<url>
@@ -191,6 +191,18 @@
 		<loc>https://www.briantist.com/tag/dfsr/</loc>
 		<changefreq>weekly</changefreq>
 		<lastmod>2014-04-04T16:42:05-04:00</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://www.briantist.com/tag/desired-state-configuration/</loc>
+		<changefreq>weekly</changefreq>
+		<lastmod>2015-11-06T19:41:00-05:00</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://www.briantist.com/tag/dsc/</loc>
+		<changefreq>weekly</changefreq>
+		<lastmod>2015-11-06T19:41:00-05:00</lastmod>
 	</url>
 	
 

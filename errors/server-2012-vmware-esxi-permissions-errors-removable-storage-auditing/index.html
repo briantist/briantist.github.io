@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2013-04-08T20:46:13-04:00"><i class="fa fa-calendar"></i>
 		April 08, 2013
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="81ce00e1-8972-4c57-ad81-0978eb75535c" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -426,7 +430,7 @@
 
 <p>My favorite fix was the suggestion to use this command:</p>
 
-<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">auditpol <span class="n">/set</span> <span class="n">/subcategory:&quot;Removable</span> Storage&quot; <span class="n">/failure:disable</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">auditpol <span class="n">/set</span> <span class="n">/subcategory:&quot;Removable</span> Storage&quot; <span class="n">/failure:disable</span></code></pre></figure>
 
 <p>This worked for WSUS as well. The interesting thing is that seems like this would do the same thing as setting the policy to <code>No Auditing</code>, but it simply doesn’t. After running this command, the policy still shows up as <code>Not Configured</code>, and the effect does seems to be different.</p>
 

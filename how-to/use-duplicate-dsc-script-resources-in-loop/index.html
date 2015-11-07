@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>How to Avoid Duplicate DSC Script Resource with $Using Variables</title>
+	
+	
+	<meta name="description" content="How to fix duplicate keys for DSC Script resources in a loop with embedded $Using variables.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+		<script>
+	var _prum = [['id', '562d90a9abe53df309cbda7d'],
+		     ['mark', 'firstbyte', (new Date()).getTime()]];
+	(function() {
+	    var s = document.getElementsByTagName('script')[0]
+	      , p = document.createElement('script');
+	    p.async = 'async';
+	    p.src = '//rum-static.pingdom.net/prum.min.js';
+	    s.parentNode.insertBefore(p, s);
+	})();
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Use Variables in a DSC Script Resource </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+		<time datetime="2015-11-06T19:41:00-05:00"><i class="fa fa-calendar"></i>
+		November 06, 2015
+		 </time>
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a83baaa5-badf-41b5-9f19-fd9473b2c75e" href="#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  
+<p>Every PowerShell Desired State Configuration resource must have at least one <code>Key</code> property that’s used to uniquely identify it within a single configuration. For the <a href="https://technet.microsoft.com/en-us/library/dn282130.aspx" target="_blank">DSC <code>Script</code> Resource</a> the keys are the <code>GetScript</code>, <code>TestScript</code>, and <code>SetScript</code> properties. Basically this means that each <code>Script</code> resource can’t contain the same content. Makes sense on the surface, but when you consider variable substitution, and looping through collections in <code>$ConfigurationData</code>, it’s easy to come up with a configuration that ends up with this error:</p>
+
+<blockquote>
+  <p>Add-NodeKeys : The key properties combination ‘<em>your script here</em>’ is duplicated for keys ‘GetScript,SetScript,TestScript’ of resource ‘Script’ in node ‘<em>nodename</em>’. Please make sure key properties are unique for each resource in a node.</p>
+</blockquote>
+
+<p>This is quite annoying, but there are ways around it so you don’t have to resort to manually unrolling your loop.</p>
+
+<a name="more"></a>
+
+<h2 id="error-demonstration">Error Demonstration</h2>
+<p>Consider the following contrived sample configuration:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="n">Configuration</span> <span class="n">ServerSetup</span>
+<span class="p">{</span> 
+    <span class="n">Node</span> <span class="nv">$AllNodes</span><span class="p">.</span><span class="n">NodeName</span>
+    <span class="p">{</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$value</span> <span class="k">in</span> <span class="nv">$Node</span><span class="p">.</span><span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Script</span> <span class="s2">&quot;$value&quot;</span>
+            <span class="p">{</span>
+                <span class="n">GetScript</span> <span class="p">=</span> <span class="p">{</span>
+                    <span class="nv">$thisValue</span> <span class="p">=</span> <span class="nv">$Using</span><span class="err">:</span><span class="n">value</span>
+                    <span class="nv">$current</span> <span class="p">=</span> <span class="nb">Get-SomeData</span> <span class="n">-About</span> <span class="nv">$thisValue</span>
+                    <span class="p">@{</span>
+                        <span class="nv">$thisValue</span> <span class="p">=</span> <span class="no">[bool]</span><span class="nv">$current</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+
+                <span class="n">TestScript</span> <span class="p">=</span> <span class="p">{</span>
+                    <span class="nv">$thisValue</span> <span class="p">=</span> <span class="nv">$Using</span><span class="err">:</span><span class="n">value</span>
+                    <span class="nv">$current</span> <span class="p">=</span> <span class="nb">Get-SomeData</span> <span class="n">-About</span> <span class="nv">$thisValue</span>
+                    <span class="nv">$dataGood</span> <span class="p">=</span> <span class="no">[bool]</span><span class="nv">$current</span>
+                    <span class="nb">Write-Verbose</span> <span class="n">-Message</span> <span class="s2">&quot;Status of Data about &#39;$thisValue&#39; is: $dataGood&quot;</span>
+                    <span class="nv">$dataGood</span>
+                <span class="p">}</span>
+
+                <span class="n">SetScript</span> <span class="p">=</span> <span class="p">{</span>
+                    <span class="nv">$thisValue</span> <span class="p">=</span> <span class="nv">$Using</span><span class="err">:</span><span class="n">value</span>
+                    <span class="nb">Write-Verbose</span> <span class="n">-Message</span> <span class="s2">&quot;Enabling Data about &#39;$thisValue&#39;&quot;</span>
+                    <span class="nb">Set-SomeData</span> <span class="n">-About</span> <span class="nv">$thisValue</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Assuming the configuration data for the node contains more than one entry in its <code>values</code> key, this will cause the error above.</p>
+
+<h3 id="whats-going-wrong">What’s going wrong?</h3>
+
+<p>The problem is that your loop is generating multiple <code>Script</code> resources, and each of them <em>appear</em> to have the same values for the key properties, but the point of embedding the current iteration’s <code>$value</code> in the script with <code>$Using:value</code> is specifically to generate a <em>unique</em> set of <code>[ScriptBlock]</code>’s for each iteration.</p>
+
+<p>The problem is that the script blocks are being checked <em>before</em> the <code>$Using</code> variables are replaced. If the check were not being done at all, the generated MOF would end up being correct.</p>
+
+<h3 id="code-classhighlight-language-powershell-data-langpowershellspan-classnoscriptblockspancode-vs-code-classhighlight-language-powershell-data-langpowershellspan-classnostringspancode-and-variable-replacement"><code class="highlight language-powershell" data-lang="powershell"><span class="no">[ScriptBlock]</span></code> vs <code class="highlight language-powershell" data-lang="powershell"><span class="no">[String]</span></code> and variable replacement</h3>
+
+<p>It has been pointed out that the <code>*Script</code> properties on this resource are actually <code>[String]</code> types. It’s useful to assign a <code>[ScriptBlock]</code> because it makes it much easier to write the code in an editor: you get proper syntax highlighting and tab completion and intellisense. But if you wanted to you could just use a string.</p>
+
+<p>That means you could use variable substitution and the values you want to be unique would be embedded. So you could do something like this:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="n">GetScript</span> <span class="p">=</span> <span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">`$</span><span class="s2">thisValue = </span><span class="se">`&quot;</span><span class="s2">$value</span><span class="se">`&quot;</span><span class="s2"> # Hope that was really a string</span>
+<span class="s2">    </span><span class="se">`$</span><span class="s2">current = Get-SomeData -About </span><span class="se">`$</span><span class="s2">thisValue</span>
+<span class="s2">    @{</span>
+<span class="s2">        </span><span class="se">`$</span><span class="s2">thisValue = [bool]</span><span class="se">`$</span><span class="s2">current</span>
+<span class="s2">    }</span>
+<span class="s2">&quot;</span></code></pre></figure>
+
+<p>You can see that this kind of sucks. </p>
+
+<ul>
+  <li>
+    <p>You get no source editing features</p>
+  </li>
+  <li>
+    <p>You have to be careful to escape special characters. If you miss one, you’ll be embedding a variable you didn’t intend to (which will probably end up being <code>$null</code> and it will be hard to find. The bigger the code, the worse this becomes (though arguably at that point you shouldn’t be using the <code>Script</code> resource anymore). And it’s not just <code>$</code>, you’ll also have to replace the backtick itself, double quotes, etc.<br />
+<br />
+You could use single quotes with the <code>-format</code> operator and use <code>{0}</code>,<code>{1}</code>, etc., but then you have to escape single quotes and curly braces.</p>
+  </li>
+  <li>
+    <p>You have to be aware of the variable type</p>
+  </li>
+  <li>
+    <p>You can’t easily embed complex objects</p>
+  </li>
+</ul>
+
+<p>This is not ideal.</p>
+
+<h2 id="using-the-power-of-code-classhighlight-language-powershell-data-langpowershellspan-classnvusingspancode">Using the Power of <code class="highlight language-powershell" data-lang="powershell"><span class="nv">$Using</span></code></h2>
+
+<p>If you take a look at a MOF file that’s generated from the use of a <code>Script</code> resource with <code>$Using</code> variables, you’ll be able to see the actual <code>[String]</code>s that are generated by the process.</p>
+
+<p>As an even smaller example let’s look at this <code>GetScript</code> property:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$v</span> <span class="p">=</span> <span class="p">@{</span> <span class="n">Hello</span> <span class="p">=</span> <span class="s1">&#39;My Name Is&#39;</span> <span class="p">}</span>
+<span class="n">Script</span> <span class="n">MyScript</span>
+<span class="p">{</span>
+    <span class="n">GetScript</span> <span class="p">=</span> <span class="p">{</span> <span class="nv">$Using</span><span class="err">:</span><span class="n">v</span> <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the MOF, you’ll end up with a script resource that looks something like this:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">Instance of MSFT_ScriptResource as <span class="nv">$MSFT_ScriptResource1ref</span>
+<span class="o">{</span>
+<span class="nv">ResourceID</span> <span class="o">=</span> <span class="s2">&quot;[Script]MyScript&quot;</span><span class="p">;</span>
+<span class="nv">GetScript</span> <span class="o">=</span> <span class="s2">&quot;$v = [System.Management.Automation.PSSerializer]::Deserialize(&#39;&lt;Objs Version=\&quot;1.1.0.1\&quot; xmlns=\&quot;http://schemas.microsoft.com/powershell/2004/04\&quot;&gt;\n  &lt;Obj RefId=\&quot;0\&quot;&gt;\n    &lt;TN RefId=\&quot;0\&quot;&gt;\n      &lt;T&gt;System.Collections.Hashtable&lt;/T&gt;\n      &lt;T&gt;System.Object&lt;/T&gt;\n    &lt;/TN&gt;\n    &lt;DCT&gt;\n      &lt;En&gt;\n        &lt;S N=\&quot;Key\&quot;&gt;Hello&lt;/S&gt;\n        &lt;S N=\&quot;Value\&quot;&gt;My Name Is&lt;/S&gt;\n      &lt;/En&gt;\n    &lt;/DCT&gt;\n  &lt;/Obj&gt;\n&lt;/Objs&gt;&#39;)\n $v &quot;</span><span class="p">;</span>
+ <span class="nv">ModuleName</span> <span class="o">=</span> <span class="s2">&quot;PSDesiredStateConfiguration&quot;</span><span class="p">;</span>
+<span class="nv">ModuleVersion</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span></code></pre></figure>
+
+<p>So essentially what’s happened here is that PowerShell serialized the object into CliXML (the same way it would  if you had used <code>Export-CliXml</code>) then embedded the deserialization call with the hardcoded XML string into the script block that gets put in the MOF. Pretty clever actually.</p>
+
+<h3 id="code-classhighlight-language-powershell-data-langpowershellspan-classnvusingspancode-this-to-our-advantage"><code class="highlight language-powershell" data-lang="powershell"><span class="nv">$Using</span></code> this to our advantage</h3>
+
+<p>If DSC’s validation of uniqueness is happening before the substitution, then we can do the substitution ourselves by serializing the object and doing the same substitution before we pass it to the <code>Script</code> resource’s property.</p>
+
+<p>I wrote a function that does just that. Here’s a gist so you can use git to clone it or just copy it, whichever is easiest:</p>
+
+<noscript><pre>function Replace-Using {
+[CmdletBinding()]
+param(
+    [Parameter(
+        Mandatory,
+        ValueFromPipeline
+    )]
+    [String]
+    $Code
+)
+
+    Process {
+        $cb = {
+            $m = $args[0]
+            $ser = [System.Management.Automation.PSSerializer]::Serialize((Get-Variable -Name $m.Groups[&#39;var&#39;] -ValueOnly))
+            &quot;`$([System.Management.Automation.PSSerializer]::Deserialize(&#39;{0}&#39;))&quot; -f $ser
+        }
+        [RegEx]::Replace($code, &#39;\$Using:(?&lt;var&gt;\w+)&#39;, $cb)
+    }
+}</pre></noscript>
+<script src="https://gist.github.com/briantist/b99961494e41cbc95689.js"> </script>
+
+<h3 id="function-usage">Function Usage</h3>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$v</span> <span class="p">=</span> <span class="p">@{</span> <span class="n">Hello</span> <span class="p">=</span> <span class="s1">&#39;My Name Is&#39;</span> <span class="p">}</span>
+<span class="n">Script</span> <span class="n">MyScript</span>
+<span class="p">{</span>
+    <span class="n">GetScript</span> <span class="p">=</span> <span class="n">Replace-Using</span> <span class="n">-Code</span> <span class="p">{</span> 
+        <span class="nv">$Using</span><span class="err">:</span><span class="n">v</span> 
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># or</span>
+
+<span class="n">Script</span> <span class="n">MyScript</span>
+<span class="p">{</span>
+    <span class="n">GetScript</span> <span class="p">=</span> <span class="p">{</span> 
+        <span class="nv">$Using</span><span class="err">:</span><span class="n">v</span> 
+    <span class="p">}</span> <span class="p">|</span> <span class="n">Replace-Using</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>That’s all there is to it! Write your script block like you normally would (with <code>$Using</code>), but pass it to the <code>Replace-Using</code> function either by parameter or by pipeline.  All of the <code>$Using</code> variables will be replaced by serialized representations (with deserialization code embedded).</p>
+
+<h2 id="function-breakdown">Function Breakdown</h2>
+<p>This function takes a single <code class="highlight language-powershell" data-lang="powershell"><span class="no">[String]</span></code> parameter that contains the code (passing in a <code class="highlight language-powershell" data-lang="powershell"><span class="no">[ScriptBlock]</span></code> works because it gets cast).</p>
+
+<p>I use a specific overload of <code class="highlight language-powershell" data-lang="powershell"><span class="no">[RegEx]</span><span class="p">::</span><span class="n">Replace</span><span class="p">()</span></code> that takes the string the search, the pattern to search for, and critically, <strong>a callback function to process the replace</strong>.</p>
+
+<p>I create a script block within the function that acts as the callback function. The RegEx pattern I’m using looks for <code>$Using:</code> and then captures the part after the colon, which is the variable name. Within the callback I retrieve the value of that variable with <code class="highlight language-powershell" data-lang="powershell"><span class="nb">Get-Variable</span></code> and serialize it with the built-in serializer.</p>
+
+<p>Then we just return the string that we want to use to replace the match (which is the entire <code>$Using:variable</code> part of the code block). For the replacement, I make sure to embed the <code>Deserialize</code> call, and I wrap the whole thing in <code>$()</code> because that will help it work better in more situations (like if you embedded your variable in a string: <code class="highlight language-powershell" data-lang="powershell"><span class="s2">&quot;A powershell string containing $Using:myvalue is useful.&quot;</span></code>).</p>
+
+<h3 id="caveats">Caveats</h3>
+<p>I can’t be certain that what I’m doing will embed cleanly into every single place where you could shove a <code>$Using</code> variable so you might want to just do something simple with it like assign your <code>$Using</code> variables to local script variables and then use the local from then on. It’s easier to type and to debug that way anyway:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">{</span>
+    <span class="nv">$localVar</span> <span class="p">=</span> <span class="nv">$Using</span><span class="err">:</span><span class="n">myVar</span>
+    
+    <span class="nb">Get-SomeThing</span> <span class="n">-Data</span> <span class="s2">&quot;A string $localVar is: </span><span class="p">$(</span><span class="nv">$localVar</span> <span class="p">|</span> <span class="n">Verify-Data</span><span class="p">)</span><span class="s2">&quot;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>For now using this in a DSC Script Resource is the only time I can think of where it makes sense to do this manually, but I’d be interested to hear of other uses.</p>
+
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/powershell/">
+					powershell <span>(11)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/desired-state-configuration/">
+					desired-state-configuration <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/dsc/">
+					dsc <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Use Variables in a DSC Script Resource&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/" title="Could not establish trust relationship for the SSL/TLS secure channel">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'https://www.briantist.com/how-to/use-duplicate-dsc-script-resources-in-loop/';  /* Replace PAGE_URL with your page's canonical URL variable */
+        this.page.identifier = 'a83baaa5-badf-41b5-9f19-fd9473b2c75e'; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() {  /* DON'T EDIT BELOW THIS LINE */
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//briantist.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+ <script id="dsq-count-scr" src="//briantist.disqus.com/count.js" async></script>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

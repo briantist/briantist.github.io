@@ -5,8 +5,26 @@
 		<description>Four million lines of BASIC</description>
 		<link>https://www.briantist.com/</link>
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Mon, 26 Oct 2015 21:08:19 -0400</lastBuildDate>
+		<lastBuildDate>Fri, 06 Nov 2015 19:53:41 -0500</lastBuildDate>
 		<language>en-us</language>
+		
+			<item>
+				<title>How to Avoid Duplicate DSC Script Resource with $Using Variables</title>
+				<pubDate>Fri, 06 Nov 2015 19:41:00 -0500</pubDate>
+				<link>https://www.briantist.com/how-to/use-duplicate-dsc-script-resources-in-loop/</link>
+				<comments>https://www.briantist.com/how-to/use-duplicate-dsc-script-resources-in-loop/#disqus_thread</comments>
+				<guid isPermaLink="true">https://www.briantist.com/how-to/use-duplicate-dsc-script-resources-in-loop/</guid>
+				<description><![CDATA[
+<p>Every PowerShell Desired State Configuration resource must have at least one <code>Key</code> property that’s used to uniquely identify it within a single configuration. For the <a href="https://technet.microsoft.com/en-us/library/dn282130.aspx" target="_blank">DSC <code>Script</code> Resource</a> the keys are the <code>GetScript</code>, <code>TestScript</code>, and <code>SetScript</code> properties. Basically this means that each <code>Script</code> resource can’t contain the same content. Makes sense on the surface, but when you consider variable substitution, and looping through collections in <code>$ConfigurationData</code>, it’s easy to come up with a configuration that ends up with this error:</p>
+
+<blockquote>
+  <p>Add-NodeKeys : The key properties combination ‘<em>your script here</em>’ is duplicated for keys ‘GetScript,SetScript,TestScript’ of resource ‘Script’ in node ‘<em>nodename</em>’. Please make sure key properties are unique for each resource in a node.</p>
+</blockquote>
+
+<p>This is quite annoying, but there are ways around it so you don’t have to resort to manually unrolling your loop.</p>
+
+<p>The post <a rel="nofollow" href="https://www.briantist.com/how-to/use-duplicate-dsc-script-resources-in-loop/">Use Variables in a DSC Script Resource</a> first appeared on <a rel="nofollow" href="https://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
 		
 			<item>
 				<title>Could not establish trust relationship for the SSL/TLS secure channel</title>

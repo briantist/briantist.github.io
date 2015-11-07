@@ -181,6 +181,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -201,6 +205,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -368,13 +376,9 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-			
-		
 		<time datetime="2012-11-05T11:58:13-05:00"><i class="fa fa-calendar"></i>
 		November 05, 2012
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="bd8221f3-af92-424a-be81-ba4e46bf7b2b" href="#disqus_thread">Comments</a></span>
 	</div>
@@ -453,7 +457,7 @@
     <dl>
       <dt>Find the connection URL, which will look something like this:</dt>
       <dd>
-        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.url&quot;</span><span class="nt">&gt;</span>jdbc:jtds:sqlserver://SQLSERVER:1433/ConfluenceDB<span class="nt">&lt;/property&gt;</span></code></pre></div>
+        <figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.url&quot;</span><span class="nt">&gt;</span>jdbc:jtds:sqlserver://SQLSERVER:1433/ConfluenceDB<span class="nt">&lt;/property&gt;</span></code></pre></figure>
       </dd>
     </dl>
   </li>
@@ -461,7 +465,7 @@
     <dl>
       <dt>Change that line so that it looks like this:</dt>
       <dd>
-        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.url&quot;</span><span class="nt">&gt;</span>jdbc:jtds:sqlserver://SQLSERVER:1433/ConfluenceDB;useNTLMv2=true;domain=CONTOSO<span class="nt">&lt;/property&gt;</span></code></pre></div>
+        <figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.url&quot;</span><span class="nt">&gt;</span>jdbc:jtds:sqlserver://SQLSERVER:1433/ConfluenceDB;useNTLMv2=true;domain=CONTOSO<span class="nt">&lt;/property&gt;</span></code></pre></figure>
       </dd>
     </dl>
   </li>
@@ -472,8 +476,8 @@
     <dl>
       <dt>You’ll also find <code>username</code> and <code>password</code> fields:</dt>
       <dd>
-        <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.username&quot;</span><span class="nt">&gt;</span>theusername<span class="nt">&lt;/property&gt;</span>
-<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.password&quot;</span><span class="nt">&gt;</span>thepassword<span class="nt">&lt;/property&gt;</span></code></pre></div>
+        <figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.username&quot;</span><span class="nt">&gt;</span>theusername<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;hibernate.connection.password&quot;</span><span class="nt">&gt;</span>thepassword<span class="nt">&lt;/property&gt;</span> </code></pre></figure>
       </dd>
     </dl>
   </li>
@@ -486,12 +490,12 @@
 
 <p>I tend to run Confluence on Server Core when possible so I like to use the command line utility <code>sc.exe</code>:</p>
 
-<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">sc config <span class="s2">&quot;Confluence&quot;</span> obj<span class="o">=</span> <span class="s2">&quot;CONTOSO\ConfUser&quot;</span> password<span class="o">=</span> <span class="s2">&quot;thewinpass&quot;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">sc config <span class="s2">&quot;Confluence&quot;</span> obj<span class="o">=</span> <span class="s2">&quot;CONTOSO\ConfUser&quot;</span> password<span class="o">=</span> <span class="s2">&quot;thewinpass&quot;</span></code></pre></figure>
 
 <p>The spaces between the <code>=</code> and the parameter are important! Or, with PowerShell:</p>
 
-<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$svc</span> <span class="p">=</span> <span class="nb">Get-WmiObject</span> <span class="n">Win32_Service</span> <span class="n">-Filter</span> <span class="s2">&quot;name=&#39;Confluence&#39;&quot;</span>
-<span class="nv">$svc</span><span class="p">.</span><span class="n">Change</span><span class="p">(</span><span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="s2">&quot;CONTOSO\ConfUser&quot;</span><span class="p">,</span> <span class="s2">&quot;thewinpass&quot;</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$svc</span> <span class="p">=</span> <span class="nb">Get-WmiObject</span> <span class="n">Win32_Service</span> <span class="n">-Filter</span> <span class="s2">&quot;name=&#39;Confluence&#39;&quot;</span>
+<span class="nv">$svc</span><span class="p">.</span><span class="n">Change</span><span class="p">(</span><span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="s2">&quot;CONTOSO\ConfUser&quot;</span><span class="p">,</span> <span class="s2">&quot;thewinpass&quot;</span><span class="p">)</span> </code></pre></figure>
 
 <h3 id="testing-it-out">Testing it Out</h3>
 
@@ -501,7 +505,7 @@
 
 <p>You can run a command prompt as your new Windows user to help with this:</p>
 
-<div class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">runas <span class="n">/user:CONTOSO\ConfUser</span> cmd</code></pre></div>
+<figure class="highlight"><pre><code class="language-winbatch" data-lang="winbatch">runas <span class="n">/user:CONTOSO\ConfUser</span> cmd</code></pre></figure>
 
 <p>This will prompt you for the password of the new user and then open a command prompt as that user. From there, you can run the startup command for Confluence and see what’s going on.</p>
 

@@ -179,6 +179,10 @@
 				
 				
 				
+				
+				
+				
+				
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -199,6 +203,10 @@
 			
 			
 			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
 			
 			
 			
@@ -365,16 +373,47 @@
   
   
   <article class="home">
-    <h2><a class="archive_list_article_link" href='/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/'>Could not establish trust relationship for the SSL/TLS secure channel</a></h2>
+    <h2><a class="archive_list_article_link" href='/how-to/use-duplicate-dsc-script-resources-in-loop/'>Use Variables in a DSC Script Resource</a></h2>
     	 <div class="byline">
 		
-			
+		<time datetime="2015-11-06T19:41:00-05:00"><i class="fa fa-calendar"></i>
+		November 06, 2015
+		 </time>
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a83baaa5-badf-41b5-9f19-fd9473b2c75e" href="/how-to/use-duplicate-dsc-script-resources-in-loop/#disqus_thread">Comments</a></span>
+	</div>
+	
+			 
+
+  <div class="post-content">
+    
+<p>Every PowerShell Desired State Configuration resource must have at least one <code>Key</code> property that’s used to uniquely identify it within a single configuration. For the <a href="https://technet.microsoft.com/en-us/library/dn282130.aspx" target="_blank">DSC <code>Script</code> Resource</a> the keys are the <code>GetScript</code>, <code>TestScript</code>, and <code>SetScript</code> properties. Basically this means that each <code>Script</code> resource can’t contain the same content. Makes sense on the surface, but when you consider variable substitution, and looping through collections in <code>$ConfigurationData</code>, it’s easy to come up with a configuration that ends up with this error:</p>
+
+<blockquote>
+  <p>Add-NodeKeys : The key properties combination ‘<em>your script here</em>’ is duplicated for keys ‘GetScript,SetScript,TestScript’ of resource ‘Script’ in node ‘<em>nodename</em>’. Please make sure key properties are unique for each resource in a node.</p>
+</blockquote>
+
+<p>This is quite annoying, but there are ways around it so you don’t have to resort to manually unrolling your loop.</p>
+
+<a class="read-more" href="/how-to/use-duplicate-dsc-script-resources-in-loop/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/'>Could not establish trust relationship for the SSL/TLS secure channel</a></h2>
+    	 <div class="byline">
 		
 		<time datetime="2015-08-17T18:40:33-04:00"><i class="fa fa-calendar"></i>
 		August 17, 2015
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="4b360992-2ad8-47b6-a433-8b51b8b29c00" href="/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/#disqus_thread">Comments</a></span>
 	</div>
@@ -402,13 +441,9 @@
     <h2><a class="archive_list_article_link" href='/how-to/test-for-verbose-in-powershell/'>Test for Verbose in Powershell</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2014-12-22T15:21:21-05:00"><i class="fa fa-calendar"></i>
 		December 22, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="73d3fad2-11b7-4802-9648-4c3f763979cc" href="/how-to/test-for-verbose-in-powershell/#disqus_thread">Comments</a></span>
 	</div>
@@ -430,13 +465,9 @@
     <h2><a class="archive_list_article_link" href='/how-to/splatting-psboundparameters-default-values-optional-parameters/'>Splatting with $PSBoundParameters and Default Values for Optional Parameters</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2014-09-09T19:05:10-04:00"><i class="fa fa-calendar"></i>
 		September 09, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="45672ac2-38b8-40e5-be6b-b3583371f206" href="/how-to/splatting-psboundparameters-default-values-optional-parameters/#disqus_thread">Comments</a></span>
 	</div>
@@ -462,13 +493,9 @@
     <h2><a class="archive_list_article_link" href='/errors/dns-manager-cant-set-txt-record-to-expire/'>DNS Manager Can't Set TXT Record to Expire</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2014-08-25T20:34:26-04:00"><i class="fa fa-calendar"></i>
 		August 25, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0462bf6f-ca52-42e4-b967-9d4393bdf94c" href="/errors/dns-manager-cant-set-txt-record-to-expire/#disqus_thread">Comments</a></span>
 	</div>
@@ -492,13 +519,9 @@
     <h2><a class="archive_list_article_link" href='/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/'>Get-DnsServerResourceRecord returns duplicate records when a sub-domain matching the zone exists</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2014-08-05T17:43:19-04:00"><i class="fa fa-calendar"></i>
 		August 05, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="8988bb0b-761a-4715-86fd-8a8a9acd0870" href="/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/#disqus_thread">Comments</a></span>
 	</div>
@@ -522,13 +545,9 @@
     <h2><a class="archive_list_article_link" href='/how-to/get-progress-dfs-replication-database-cloning-import/'>Get Progress on DFS Replication Database Cloning Import</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2014-04-04T16:42:05-04:00"><i class="fa fa-calendar"></i>
 		April 04, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0ad50611-7997-475c-9600-77136b83dc34" href="/how-to/get-progress-dfs-replication-database-cloning-import/#disqus_thread">Comments</a></span>
 	</div>
@@ -554,13 +573,9 @@
     <h2><a class="archive_list_article_link" href='/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/'>DFSR Database Cloning Import Fails - 0x00001129 - Error 4393 - The tag present in the reparse point buffer is invalid</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2014-04-04T15:53:08-04:00"><i class="fa fa-calendar"></i>
 		April 04, 2014
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="054990fa-390e-4cce-bd75-97ea7014fd3b" href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/#disqus_thread">Comments</a></span>
 	</div>
@@ -616,13 +631,9 @@
     <h2><a class="archive_list_article_link" href='/errors/scheduled-task-powershell-0xfffd0000/'>Last Result of 0xFFFD0000 for Powershell Scheduled Task</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2013-06-06T19:16:45-04:00"><i class="fa fa-calendar"></i>
 		June 06, 2013
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="2b87f878-3444-4265-8a8c-336ea40baea3" href="/errors/scheduled-task-powershell-0xfffd0000/#disqus_thread">Comments</a></span>
 	</div>
@@ -696,13 +707,9 @@
     <h2><a class="archive_list_article_link" href='/how-to/confluence-jira-windows-upgrades/'>Simplify Confluence and JIRA Upgrades on Windows</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2012-09-26T20:04:44-04:00"><i class="fa fa-calendar"></i>
 		September 26, 2012
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a731b830-d022-4b48-83f9-1784d34a293c" href="/how-to/confluence-jira-windows-upgrades/#disqus_thread">Comments</a></span>
 	</div>
@@ -726,13 +733,9 @@
     <h2><a class="archive_list_article_link" href='/how-to/powershell-remoting-group-policy/'>Enable Powershell Remoting via Group Policy</a></h2>
     	 <div class="byline">
 		
-			
-		
 		<time datetime="2012-09-16T22:29:44-04:00"><i class="fa fa-calendar"></i>
 		September 16, 2012
 		 </time>
-		
-		
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="ebe8b75d-56f2-4ae4-82df-1fbd4fb5ffdb" href="/how-to/powershell-remoting-group-policy/#disqus_thread">Comments</a></span>
 	</div>
