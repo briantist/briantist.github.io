@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+	
+	<title>How to Prevent PowerShell from Prompting on Mandatory Parameters</title>
+	
+	
+	<meta name="description" content="How to have PowerShell parameters that are mandatory but don&#39;t prompt the user when they are missing, even by pipeline.">
+	
+	<meta name="author" content="Brian Scholer">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	<link href="/assets/css/slimbox2.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	
+	<!-- Asynchronous Google Analytics snippet -->
+	<script>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-34696009-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	
+		<script>
+	var _prum = [['id', '562d90a9abe53df309cbda7d'],
+		     ['mark', 'firstbyte', (new Date()).getTime()]];
+	(function() {
+	    var s = document.getElementsByTagName('script')[0]
+	      , p = document.createElement('script');
+	    p.async = 'async';
+	    p.src = '//rum-static.pingdom.net/prum.min.js';
+	    s.parentNode.insertBefore(p, s);
+	})();
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/briantist">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/BrianScholer">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=35" class="img-circle" />
+				briantist.com
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+				
+				
+				
+				
+				<li><a href="/about-me/"><i class="fa fa-user"></i>&nbsp;About</a></li>
+				
+				
+				
+				<li><a href="/contact-me/"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			
+			
+			
+			
+			<li><a href="/about-me/"><i class="fa fa-user"></i>About</a></li>
+			
+			
+			
+			<li><a href="/contact-me/"><i class="fa fa-envelope"></i>Contact</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/c54d4c111c4564b116ff1efca8c56788?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">briantist.com</a>
+    </h3>
+</header>
+
+
+
+<div id="description" class="text-center">
+	Four million lines of BASIC
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/briantist">
+				<i class="fa fa-github-alt fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/BrianScholer">
+				<i class="fa fa-twitter fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:brian@briantist.com">
+				<i class="fa fa-envelope fa-2x"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="http://stackoverflow.com/users/3905079/briantist">
+				<i class="fa fa-stack-overflow fa-2x"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/bscholer">
+				<i class="fa fa-linkedin fa-2x"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+	
+	
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Throw an Exception Instead of Prompt for an Unsupplied Mandatory PowerShell Parameter </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+		 <div class="byline">
+		
+		<time datetime="2015-11-08T00:00:00-05:00"><i class="fa fa-calendar"></i>
+		November 08, 2015
+		 </time>
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="7b8acbeb-de99-44c7-b56d-c0db5b8b65a8" href="#disqus_thread">Comments</a></span>
+		 
+	</div>
+	
+			 
+
+	  <div class="article_body">
+	  <p>I came across <a href="http://stackoverflow.com/q/33600279/3905079" target="_blank">this question on StackOverflow about <code>throw</code>ing when a parameter is not supplied by pipeline <i class="fa fa-stack-overflow"></i></a>. There have been many questions about this (without so much emphasis on the pipeline), so it seems to be a common request that PowerShell not prompt on a missing mandatory parameter, but instead <code>throw</code> an exception.</p>
+
+<p>The short answer is that there is no way to do it if the parameter is in fact mandatory, so what we usually settle for is a simulation of required-ness that’s usually handled with a default value expression that <code>throw</code>s an exception, like so:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-Thing</span> <span class="p">{</span>
+<span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+<span class="k">param</span><span class="p">(</span>
+    <span class="nv">$MyParam</span> <span class="p">=</span> <span class="p">$(</span> <span class="k">throw</span> <span class="s1">&#39;MyParam is required&#39;</span> <span class="p">)</span>
+<span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>But this approach has its disadvantages.</p>
+
+<a name="more"></a>
+
+<h2 id="reasons-not-to-do-this">Reasons Not to Do This</h2>
+
+<ul>
+  <li>
+    <p>As <a href="http://stackoverflow.com/users/1404637/alx9r" target="_blank">alx9r</a> points out this fails when the parameter is passed in via the pipeline.</p>
+  </li>
+  <li>
+    <p>It prevents the built-in PowerShell help from explaining that a parameter is mandatory in the usual way.</p>
+  </li>
+  <li>
+    <p>It can interfere with parameter binding if some parameter sets rely on the parameter being mandatory to be unambiguous.</p>
+  </li>
+  <li>
+    <p>It prevents automated discovery of mandatory parameters which can break automation and proxy functions.</p>
+  </li>
+</ul>
+
+<h2 id="why-to-do-this">Why <em>to</em> Do This</h2>
+<p>I’ve personally not needed this. I feel that the advantanges of marking a parameter (correctly) as mandatory far outweighed the slight annoyance I had when seeing that I forgot a mandatory parameter and then had to hit <kbd>CTRL+C</kbd> to supply it.</p>
+
+<p>But I had a chat with the question asker and he explained that he has a lot of code that is deeply nested, sometimes 20+ levels, and it isn’t always obvious where in the stack a parameter is missing. I feel lucky that I have not had that experience, but I could see how it might suck up a lot of time. An exception would be more helpful. It could be caught and a breakpoint set so you could see what the current context is.</p>
+
+<h2 id="workarounds">Workarounds</h2>
+<p>The last 3 items are unavoidable as long as we’re not making the parameter truly mandatory, so I’m going to focus on a solution that works with values passed by parameter or by pipeline.</p>
+
+<h3 id="test-it-in-the-code">Test it in the code</h3>
+<p>The obvious workaround is to test the parameter in the <code>Process {}</code> block:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">Process</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(!</span><span class="nv">$MyParam</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="no">[System.ArgumentException]</span><span class="s2">&quot;MyParam is required&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>It works; it’s not very long, but it doesn’t scale. You need a separate conditional for every parameter in every function.</p>
+
+<h3 id="wrap-the-test-in-a-function">Wrap the test in a function</h3>
+<p>Another idea I had was to wrap the previous idea in a function:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="n">Validate-Parameter</span> <span class="p">{</span>
+<span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+<span class="k">param</span><span class="p">(</span>
+    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span>
+        <span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span> <span class="p">,</span> <span class="c">#irony</span>
+        <span class="k">ValueFromPipeline</span><span class="p">=</span><span class="nv">$true</span>
+    <span class="p">)]</span>
+    <span class="no">[object]</span>
+    <span class="nv">$o</span> <span class="p">,</span>
+
+    <span class="no">[String]</span>
+    <span class="nv">$Message</span>
+<span class="p">)</span>
+
+    <span class="k">Begin</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="nv">$Message</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$Message</span> <span class="p">=</span> <span class="s1">&#39;The specified parameter is required.&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">Process</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="nv">$o</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="no">[System.ArgumentException]</span><span class="nv">$Message</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># Usage</span>
+
+<span class="k">Process</span> <span class="p">{</span>
+    <span class="nv">$a</span> <span class="p">|</span> <span class="n">Validate-Parameter</span> <span class="n">-Message</span> <span class="s2">&quot;-a is a required parameter&quot;</span>
+    <span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">,</span><span class="nv">$c</span><span class="p">,</span><span class="nv">$d</span> <span class="p">|</span> <span class="n">Validate-Parameter</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>I think it’s an improvement, but it still requires a lot of manual addition, especially if you want the message to be relevant.</p>
+
+<h3 id="one-test-to-rule-them-all">One Test to Rule Them All</h3>
+<p>I got to thinking that if I could just get at the command info of the original function, I could parse the parameters and look for something else to use to decide whether or not to <code>throw</code> if a parameter that’s not actually mandatory is unbound. I decided on adding an <code>[Alias()]</code> attribute to each of these parameters that begings with <code>Required_</code>. Aliases can be seen in help (though not to extent that it makes up for the second bullet above), but they don’t show up by default, and they don’t pollute the tab completion, plus you can still add any other “real” aliases you want.</p>
+
+<p>I’m including this as a gist so you can use git or copy/paste:</p>
+
+<noscript><pre>&lt;#
+.SYNOPSIS
+Checks parameters of a specific command for parameters that should have a value but are not Mandatory.
+
+.DESCRIPTION
+If a parameter is not marked as Mandatory but the intention is for a value to be supplied, this function 
+will look for an alias that begins with the string &quot;Required_&quot;. If such an alias is found and the 
+parameter is not bound, this function will throw an exception or set a breakpoint depending on the 
+options supplied.
+
+.PARAMETER Context
+You must pass $MyInvocation.MyCommand as the value of this parameter.
+
+.PARAMETER BoundParams
+You must pass $PSBoundParameters as the value of this parameter. It can also be supplied by pipeline.
+
+.PARAMETER SetBreakpoint
+If this is set, then an exception will not be thrown. Instead, a breakpoint will be set on the line 
+where this function was called. Because that is earlier in the stack however, the breakpoint will 
+not be hit unless the parameter fails validation again.
+
+.PARAMETER Debug
+If you set -Debug with -SetBreakpoint, then the breakpoint info will be written to the Debug stream.
+
+.NOTES
+SetBreakpoint is not well-tested and may not work on scripts that aren&#39;t saved to disk.
+
+.EXAMPLE
+$PSBoundParameters | Validate-MandatoryOptionalParameters -Context $MyInvocation.MyCommand
+
+.LINK
+https://www.briantist.com/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/
+
+#&gt;
+function Validate-MandatoryOptionalParameters {
+[CmdletBinding()]
+param(
+    [Parameter(
+        Mandatory=$true
+    )]
+    [System.Management.Automation.CommandInfo]
+    $Context ,
+
+    [Parameter(
+        Mandatory=$true,
+        ValueFromPipeline=$true
+    )]
+    [System.Collections.Generic.Dictionary[System.String,System.Object]]
+    $BoundParams ,
+
+    [Switch]
+    $SetBreakpoint
+)
+
+    Process {
+        foreach($param in $Context.Parameters.GetEnumerator()) {
+            if ($param.Value.Aliases.Where({$_ -imatch &#39;^Required_&#39;})) {
+                if (!$BoundParams[$param.Key]) {
+                    if ($SetBreakpoint) {
+                    $stack = Get-PSCallStack | Select-Object -Index 1
+                    Set-PSBreakpoint -Line $stack.ScriptLineNumber -Script $stack.ScriptName | Write-Debug
+                    } else {
+                        throw [System.ArgumentException]&quot;&#39;$($param.Key)&#39; in command &#39;$($Context.Name)&#39; must be supplied by the caller.&quot;
+                    }
+                }
+            }
+        }
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/briantist/9ab9d086a7cf11d69646.js"> </script>
+
+<h2 id="validate-mandatoryoptionalparameters-features-and-usage"><code>Validate-MandatoryOptionalParameters</code>: Features and Usage</h2>
+
+<ul>
+  <li>
+    <p>Same invocation for every situation (useful with ISE snippets), regardless of parameters.</p>
+  </li>
+  <li>
+    <p>Can set a breakpoint instead of throwing to aid in live debugging.</p>
+  </li>
+  <li>
+    <p>Use of <code>-Debug</code> switch provides further control.</p>
+  </li>
+  <li>
+    <p>Comment-based help included for parameter usage.</p>
+  </li>
+</ul>
+
+<h3 id="test-invocation">Test Invocation</h3>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Test-Function</span> <span class="p">{</span>
+<span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+<span class="k">param</span><span class="p">(</span>
+    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span>
+        <span class="k">ValueFromPipeline</span><span class="p">=</span><span class="nv">$true</span>
+    <span class="p">)]</span>
+    <span class="p">[</span><span class="k">Alias</span><span class="p">(</span><span class="s1">&#39;Required_Param1&#39;</span><span class="p">)]</span>
+    <span class="nv">$Param1</span> <span class="p">,</span>
+
+    <span class="nv">$Param2</span> <span class="p">,</span>
+
+    <span class="p">[</span><span class="k">Alias</span><span class="p">(</span><span class="s1">&#39;Required_Param3&#39;</span><span class="p">)]</span>
+    <span class="nv">$Param3</span>
+<span class="p">)</span>
+
+    <span class="k">Process</span> <span class="p">{</span>
+        <span class="nv">$PSBoundParameters</span> <span class="p">|</span> <span class="n">Validate-MandatoryOptionalParameters</span> <span class="n">-Context</span> <span class="nv">$MyInvocation</span><span class="p">.</span><span class="n">MyCommand</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The following calls all throw an exception:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Test-Function</span>
+<span class="nb">Test-Function</span> <span class="n">-Param1</span> <span class="s1">&#39;p1&#39;</span>
+<span class="nb">Test-Function</span> <span class="n">-Param3</span> <span class="s1">&#39;p3&#39;</span>
+<span class="s1">&#39;p1&#39;</span> <span class="p">|</span> <span class="nb">Test-Function</span></code></pre></figure>
+
+<p>Or if <code>Test-Function</code>’s process block were this:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">    <span class="k">Process</span> <span class="p">{</span>
+        <span class="nv">$PSBoundParameters</span> <span class="p">|</span> <span class="n">Validate-MandatoryOptionalParameters</span> <span class="n">-Context</span> <span class="nv">$MyInvocation</span><span class="p">.</span><span class="n">MyCommand</span> <span class="n">-SetBreakpoint</span>
+    <span class="p">}</span></code></pre></figure>
+
+<p>It would set breakpoints which would be hit on the call to <code>Test-Function</code> that failed validation.</p>
+
+<p>By adding <code>-Debug</code>:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">    <span class="k">Process</span> <span class="p">{</span>
+        <span class="nv">$PSBoundParameters</span> <span class="p">|</span> <span class="n">Validate-MandatoryOptionalParameters</span> <span class="n">-Context</span> <span class="nv">$MyInvocation</span><span class="p">.</span><span class="n">MyCommand</span> <span class="n">-SetBreakpoint</span> <span class="n">-Debug</span>
+    <span class="p">}</span></code></pre></figure>
+
+<p>PowerShell will write the breakpoint info to the debug stream, and this also triggers PowerShell to confirm the action. That lets you break right then and there or let it just set the breakpoint and wait for the next time it hits.</p>
+
+<p>And by the way if you ever need to get back to this page:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Help</span> <span class="n">Validate-MandatoryOptionalParameters</span> <span class="n">-Online</span></code></pre></figure>
+
+	  </div>
+                    
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag/powershell/">
+					powershell <span>(12)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Throw an Exception Instead of Prompt for an Unsupplied Mandatory PowerShell Parameter&via=BrianScholer"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/how-to/use-duplicate-dsc-script-resources-in-loop/" title="Use Variables in a DSC Script Resource">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'https://www.briantist.com/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/';  /* Replace PAGE_URL with your page's canonical URL variable */
+        this.page.identifier = '7b8acbeb-de99-44c7-b56d-c0db5b8b65a8'; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() {  /* DON'T EDIT BELOW THIS LINE */
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//briantist.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+ <script id="dsq-count-scr" src="//briantist.disqus.com/count.js" async></script>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2012 &ndash; 2015 Brian Scholer &nbsp;&middot;&nbsp; <a rel="nofollow" target="_blank" href="https://cloudflare.ipv6-test.com/validate.php?url=www.briantist.com"><img src="https://ajax.cloudflare.com/cdn-cgi/custom/images/button-ipv6-80x15.png" alt="ipv6 ready" title="ipv6 ready" border="0" style="vertical-align: middle;" width="80" height="15" /></a>
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/slimbox2/slimbox2.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

@@ -372,6 +372,46 @@
 
 <article class="home">
   <h2>
+    <a href="/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/">Throw an Exception Instead of Prompt for an Unsupplied Mandatory PowerShell Parameter</a>
+  </h2>
+   	 <div class="byline">
+		
+		<time datetime="2015-11-08T00:00:00-05:00"><i class="fa fa-calendar"></i>
+		November 08, 2015
+		 </time>
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="7b8acbeb-de99-44c7-b56d-c0db5b8b65a8" href="/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/#disqus_thread">Comments</a></span>
+		 
+	</div>
+	
+			 
+
+
+  <div class="post-content">
+    
+    
+    <p>I came across <a href="http://stackoverflow.com/q/33600279/3905079" target="_blank">this question on StackOverflow about <code>throw</code>ing when a parameter is not supplied by pipeline <i class="fa fa-stack-overflow"></i></a>. There have been many questions about this (without so much emphasis on the pipeline), so it seems to be a common request that PowerShell not prompt on a missing mandatory parameter, but instead <code>throw</code> an exception.</p>
+
+<p>The short answer is that there is no way to do it if the parameter is in fact mandatory, so what we usually settle for is a simulation of required-ness that’s usually handled with a default value expression that <code>throw</code>s an exception, like so:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-Thing</span> <span class="p">{</span>
+<span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+<span class="k">param</span><span class="p">(</span>
+    <span class="nv">$MyParam</span> <span class="p">=</span> <span class="p">$(</span> <span class="k">throw</span> <span class="s1">&#39;MyParam is required&#39;</span> <span class="p">)</span>
+<span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>But this approach has its disadvantages.</p>
+
+<a class="read-more" href="/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/#more">Continue Reading &raquo;</a>
+    
+    
+  </div>
+
+</article>
+
+<article class="home">
+  <h2>
     <a href="/how-to/use-duplicate-dsc-script-resources-in-loop/">Use Variables in a DSC Script Resource</a>
   </h2>
    	 <div class="byline">
@@ -381,6 +421,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a83baaa5-badf-41b5-9f19-fd9473b2c75e" href="/how-to/use-duplicate-dsc-script-resources-in-loop/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -416,6 +457,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="4b360992-2ad8-47b6-a433-8b51b8b29c00" href="/errors/could-not-establish-trust-relationship-for-the-ssltls-secure-channel/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -450,6 +492,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="73d3fad2-11b7-4802-9648-4c3f763979cc" href="/how-to/test-for-verbose-in-powershell/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -478,6 +521,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="45672ac2-38b8-40e5-be6b-b3583371f206" href="/how-to/splatting-psboundparameters-default-values-optional-parameters/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -508,6 +552,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0462bf6f-ca52-42e4-b967-9d4393bdf94c" href="/errors/dns-manager-cant-set-txt-record-to-expire/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -536,6 +581,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="8988bb0b-761a-4715-86fd-8a8a9acd0870" href="/errors/get-dnsserverresourcerecord-returns-duplicate-records-when-sub-domain-matching-zone-exists/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -564,6 +610,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="0ad50611-7997-475c-9600-77136b83dc34" href="/how-to/get-progress-dfs-replication-database-cloning-import/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -594,6 +641,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="054990fa-390e-4cce-bd75-97ea7014fd3b" href="/errors/dfsr-database-cloning-import-fails-0x1129-4393-tag-reparse-point-buffer-invalid/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -622,6 +670,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="28aee44b-a10c-430a-a87b-1084e73928ca" href="/errors/remote-desktop-gateway-server-temporarily-unavailable-sbs-2011-after-uninstalling-exchange-server/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -650,6 +699,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="f5062a60-5dab-47fa-933f-bfd55e013bf8" href="/how-to/configure-confluence-smtp-tls-jndi-office-365-relay/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -692,6 +742,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="c9ee83c8-7f59-48e5-9b56-e4486994c9c5" href="/errors/junk-mail-not-syncing-android-exchange-activesync/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -724,6 +775,7 @@
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="f8d52ad9-f45c-4fe9-9cdb-8779e21e7cd8" href="/errors/failed-to-clone-the-repository-github-for-windows/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -761,6 +813,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="2b87f878-3444-4265-8a8c-336ea40baea3" href="/errors/scheduled-task-powershell-0xfffd0000/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -789,6 +842,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="81ce00e1-8972-4c57-ad81-0978eb75535c" href="/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -821,6 +875,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="602d5ffd-27ca-4d9f-bed7-368adec1eae8" href="/how-to/missing-computers-eset-nod32-remote-install/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -849,6 +904,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a1f0f061-ba1d-419a-8c4d-81c7843bddd0" href="/how-to/hide-pages-404-genesis-theme-wordpress/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -884,6 +940,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="17a315da-6885-410c-b1b8-1322e7af9ede" href="/errors/dfs-properties-cannot-be-set-namespace-server-access-denied/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -918,6 +975,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="bd8221f3-af92-424a-be81-ba4e46bf7b2b" href="/how-to/jtds-ntlm-auth-confluence-sql-server/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -946,6 +1004,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="776a6cb4-ac26-4b51-bb17-3839ec739f2e" href="/how-to/send-mail-multiple-recipients-ruby-pony/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -975,6 +1034,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="9186964b-36a9-4e4d-80cd-3b987117ba66" href="/how-to/configure-viking-ata-100-cortelco-8211-analog-telephone-adapter/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -1004,6 +1064,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="a731b830-d022-4b48-83f9-1784d34a293c" href="/how-to/confluence-jira-windows-upgrades/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -1032,6 +1093,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="ebe8b75d-56f2-4ae4-82df-1fbd4fb5ffdb" href="/how-to/powershell-remoting-group-policy/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 
@@ -1070,6 +1132,7 @@ Please check your internet connection.</p>
 		 </time>
 		
 		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="010664af-1f0b-4271-a33c-72ccb9a40a0e" href="/how-to/fix-incorrect-dates-in-utorrent/#disqus_thread">Comments</a></span>
+		 
 	</div>
 	
 			 

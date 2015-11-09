@@ -5,8 +5,30 @@
 		<description>Four million lines of BASIC</description>
 		<link>https://www.briantist.com/</link>
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Sat, 07 Nov 2015 21:55:49 -0500</lastBuildDate>
+		<lastBuildDate>Sun, 08 Nov 2015 23:25:56 -0500</lastBuildDate>
 		<language>en-us</language>
+		
+			<item>
+				<title>How to Prevent PowerShell from Prompting on Mandatory Parameters</title>
+				<pubDate>Sun, 08 Nov 2015 00:00:00 -0500</pubDate>
+				<link>https://www.briantist.com/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/</link>
+				<comments>https://www.briantist.com/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/#disqus_thread</comments>
+				<guid isPermaLink="true">https://www.briantist.com/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/</guid>
+				<description><![CDATA[<p>I came across <a href="http://stackoverflow.com/q/33600279/3905079" target="_blank">this question on StackOverflow about <code>throw</code>ing when a parameter is not supplied by pipeline <i class="fa fa-stack-overflow"></i></a>. There have been many questions about this (without so much emphasis on the pipeline), so it seems to be a common request that PowerShell not prompt on a missing mandatory parameter, but instead <code>throw</code> an exception.</p>
+
+<p>The short answer is that there is no way to do it if the parameter is in fact mandatory, so what we usually settle for is a simulation of required-ness that’s usually handled with a default value expression that <code>throw</code>s an exception, like so:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-Thing</span> <span class="p">{</span>
+<span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+<span class="k">param</span><span class="p">(</span>
+    <span class="nv">$MyParam</span> <span class="p">=</span> <span class="p">$(</span> <span class="k">throw</span> <span class="s1">&#39;MyParam is required&#39;</span> <span class="p">)</span>
+<span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>But this approach has its disadvantages.</p>
+
+<p>The post <a rel="nofollow" href="https://www.briantist.com/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/">Throw an Exception Instead of Prompt for an Unsupplied Mandatory PowerShell Parameter</a> first appeared on <a rel="nofollow" href="https://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
 		
 			<item>
 				<title>How to Avoid Duplicate DSC Script Resource with $Using Variables</title>
