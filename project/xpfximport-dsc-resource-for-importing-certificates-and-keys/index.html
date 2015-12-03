@@ -3,10 +3,10 @@
 <head>
 		<meta charset="utf-8">
 	
-	<title>Last Result of 0xFFFD0000 for Powershell Scheduled Task</title>
+	<title>xPfxImport DSC Resource for Importing Certificates and Keys</title>
 	
 	
-	<meta name="description" content="A Last Run Result of 0xFFFD0000 in a Scheduled Task running Powershell seems to indicate a permissions problem.">
+	<meta name="description" content="Import SSL certificates and private keys from a PFX file with PowerShell DSC using xPfxImport.">
 	
 	<meta name="author" content="Brian Scholer">
 
@@ -368,7 +368,7 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Last Result of 0xFFFD0000 for Powershell Scheduled Task </h1>
+  <h1>xPfxImport DSC Resource for Importing Certificates and Keys </h1>
 </div>
 	
 <article>
@@ -376,37 +376,73 @@
 	<div class="col-sm-10">
 		 <div class="byline">
 		
-		<time datetime="2013-06-06T19:16:45-04:00"><i class="fa fa-calendar"></i>
-		June 06, 2013
+		<time datetime="2015-12-03T00:00:00-05:00"><i class="fa fa-calendar"></i>
+		December 03, 2015
 		 </time>
 		
-		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="2b87f878-3444-4265-8a8c-336ea40baea3" href="#disqus_thread">Comments</a></span>
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="5d7d0923-255b-4570-86e9-e0719dcc2685" href="#disqus_thread">Comments</a></span>
 		 
 	</div>
 	
 			 
 
 	  <div class="article_body">
-	  <p>In my environment I push out a scheduled task which runs a PowerShell script. The PowerShell script sits on a network share. Recently, we changed the share where our scripts are stored, and as a result we updated the task to point to the new script location. The task used to work, but now it throws a Last Run Result error, with the return code <code>0xFFFD0000</code>.</p>
+	  
+<p>I’m very proud to have contributed the <code>xPfxImport</code> DSC Resource to Microsoft’s <code>xCertificate</code> module. This resource is included in version 1.1.0.0 of <code>xCertificate</code> which was released on <time datetime="2015-12-02T22:49:29Z" is="relative-time" title="Dec 2, 2015, 5:49 PM EST">December 2, 2015</time>.</p>
+
+<p><a href="https://github.com/PowerShell/xCertificate/tree/master" target="_blank"><i class="fa fa-github-square"></i> xCertificate on GitHub</a><br />
+<a href="http://www.powershellgallery.com/packages/xcertificate" target="_blank"><i class="fa fa-windows"></i> xCertificate on PowerShell Gallery</a><br />
+<a href="http://serverfault.com/a/638926/236470" target="_blank"><i class="fa fa-stack-exchange"></i> ServerFault thread that pushed me to publish</a> (thanks in particular to <a href="http://serverfault.com/users/23067/jscott" target="_blank">jscott</a>).</p>
+
+<p>The purpose is to distribute SSL certificates (and optionally the private key) to nodes via PowerShell Desired State Configuration. The PFX is loaded from a network share or file path, and is typically encrypted with a password. DSC Encrypted Credentials are used to store the PFX extraction password securely in the configuration.</p>
+
+<p>My primary use case in writing this concerned distribution of commercially purchased SSL certificates; particularly something like a wildcard cert which needs to be distributed to many nodes and will be need to be updated periodically as renewals happen.</p>
+
+<p>This will also be nice for use with shorter term certificates like <a href="https://letsencrypt.org/2015/11/09/why-90-days.html" target="_blank">90-day certs offered for free by Let’s Encrypt</a>.</p>
 
 <a name="more"></a>
 
-<p>The task runs as <code>SYSTEM</code>. If I changed the task to run as my account, it worked. In my case, it was that the new script share has more restrictive permissions than the previous share did.</p>
+<h2 id="documentation">Documentation</h2>
+<p><a href="https://github.com/PowerShell/xCertificate/blob/master/ReadMe.md" target="_blank"><strong>The README on GitHub is the canonical source of documentation</strong></a>. </p>
 
-<p>A process running as <code>LocalSystem</code> (<code>NT AUTHORITY\SYSTEM</code>) or as <code>NETWORK SERVICE</code> authenticates on the network as the computer account. So the solution for me was to add <code>Domain Computers</code> onto my share’s permissions with read access (since I don’t need to write anything there).</p>
+<p>Check there for the most up-to-date info; I probably won’t update this.</p>
 
-<h4 id="the-2-takeaways-here-for-me-are">The 2 takeaways here for me are:</h4>
+<h3 id="xpfximport-resource-has-following-properties"><code>xPfxImport</code> resource has following properties:</h3>
 
-<ol>
-  <li>
-    <p><code>SYSTEM</code> uses the computer account (<code>DOMAIN\COMPUTERNAME$</code>) for network authentication. This is useful for scheduled tasks and Windows services if you run into issues.</p>
-  </li>
-  <li>
-    <p><code>0xFFFD0000</code> is very poorly documented (or poorly indexed in search engines), and it seems to indicate some kind of permissions or authentication problem.</p>
-  </li>
-</ol>
+<ul>
+  <li><strong>Thumbprint</strong>: The thumbprint (unique identifier) of the certificate you’re importing.</li>
+  <li><strong>Path</strong>: The path to the PFX file you want to import.</li>
+  <li><strong>Location</strong>: Currently the only valid value here is <code>LocalMachine</code>.</li>
+  <li><strong>Store</strong>: Defaults to <code>My</code> (the personal store) but can be any store that is valid on the machine (for example, <code>WebHosting</code>).</li>
+  <li><strong>Exportable</strong>: Defaults to <code>$false</code>. Determines whether the private key is exportable from the machine after you import it.</li>
+  <li><strong>Credential</strong>: A <code>[PSCredential]</code> object that is used to decrypt the PFX file. Only the password is used, so any user name is valid.</li>
+</ul>
 
-<p>Hope this helps someone!</p>
+<h3 id="simple-usage">Simple Usage</h3>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="n">xPfxImport</span> <span class="n">CompanyCert</span>
+<span class="p">{</span>
+    <span class="n">Thumbprint</span> <span class="p">=</span> <span class="s1">&#39;c81b94933420221a7ac004a90242d8b1d3e5070d&#39;</span>
+    <span class="n">Path</span> <span class="p">=</span> <span class="s1">&#39;\\Server\Share\Certificates\CompanyCert.pfx&#39;</span>
+    <span class="n">Credential</span> <span class="p">=</span> <span class="nv">$PfxPassword</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="used-with-xwebadministration-resources">Used with xWebAdministration Resources</h3>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="n">xPfxImport</span> <span class="n">CompanyCert</span>
+<span class="p">{</span>
+    <span class="n">Thumbprint</span> <span class="p">=</span> <span class="s1">&#39;c81b94933420221a7ac004a90242d8b1d3e5070d&#39;</span>
+    <span class="n">Path</span> <span class="p">=</span> <span class="s1">&#39;\\Server\Share\Certificates\CompanyCert.pfx&#39;</span>
+    <span class="n">Store</span> <span class="p">=</span> <span class="s1">&#39;WebHosting&#39;</span>
+    <span class="n">Credential</span> <span class="p">=</span> <span class="nv">$PfxPassword</span>
+    <span class="n">DependsOn</span> <span class="p">=</span> <span class="s1">&#39;[WindowsFeature]IIS&#39;</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<p>This is my first somewhat major open source contribution, and I hope to make more of these, especially to the DSC resources. I’m really glad Microsoft is embracing this approach.</p>
+
+<p>Please let me know if you’re using this, how you’re using it, any feedback you might have (<a href="https://github.com/PowerShell/xCertificate/issues" target="_blank">bugs and feature requests can be submitted via GitHub</a>).</p>
 
 	  </div>
                     
@@ -425,8 +461,15 @@
 				</li>
 			 
 				<li>
-					<a href="/tag/scheduled-task/">
-					scheduled-task <span>(1)</span>
+					<a href="/tag/dsc/">
+					dsc <span>(2)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag/desired-state-configuration/">
+					desired-state-configuration <span>(2)</span>
 					
 					</a>
 				</li>
@@ -441,7 +484,7 @@
 		<div>
       <section class="share col-sm-6">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Last Result of 0xFFFD0000 for Powershell Scheduled Task&via=BrianScholer"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=xPfxImport DSC Resource for Importing Certificates and Keys&via=BrianScholer"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -465,10 +508,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/errors/server-2012-vmware-esxi-permissions-errors-removable-storage-auditing/" title="Windows Server 2012, VMware ESXi, and Strange Permissions Errors - Removable Storage Auditing what?">&larr; Previous</a></li>
+		  <li class="previous"><a href="/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/" title="Throw an Exception Instead of Prompt for an Unsupplied Mandatory PowerShell Parameter">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/errors/failed-to-clone-the-repository-github-for-windows/" title="Failed to clone the repository in GitHub for Windows">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
@@ -493,8 +536,8 @@
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'https://www.briantist.com/errors/scheduled-task-powershell-0xfffd0000/';  /* Replace PAGE_URL with your page's canonical URL variable */
-        this.page.identifier = '2b87f878-3444-4265-8a8c-336ea40baea3'; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+        this.page.url = 'https://www.briantist.com/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/';  /* Replace PAGE_URL with your page's canonical URL variable */
+        this.page.identifier = '5d7d0923-255b-4570-86e9-e0719dcc2685'; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() {  /* DON'T EDIT BELOW THIS LINE */
         var d = document, s = d.createElement('script');

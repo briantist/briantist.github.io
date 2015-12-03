@@ -5,8 +5,30 @@
 		<description>Four million lines of BASIC</description>
 		<link>https://www.briantist.com/</link>
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Sun, 08 Nov 2015 23:25:56 -0500</lastBuildDate>
+		<lastBuildDate>Thu, 03 Dec 2015 15:48:27 -0500</lastBuildDate>
 		<language>en-us</language>
+		
+			<item>
+				<title>xPfxImport DSC Resource for Importing Certificates and Keys</title>
+				<pubDate>Thu, 03 Dec 2015 00:00:00 -0500</pubDate>
+				<link>https://www.briantist.com/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/</link>
+				<comments>https://www.briantist.com/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/#disqus_thread</comments>
+				<guid isPermaLink="true">https://www.briantist.com/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/</guid>
+				<description><![CDATA[
+<p>I’m very proud to have contributed the <code>xPfxImport</code> DSC Resource to Microsoft’s <code>xCertificate</code> module. This resource is included in version 1.1.0.0 of <code>xCertificate</code> which was released on <time datetime="2015-12-02T22:49:29Z" is="relative-time" title="Dec 2, 2015, 5:49 PM EST">December 2, 2015</time>.</p>
+
+<p><a href="https://github.com/PowerShell/xCertificate/tree/master" target="_blank"><i class="fa fa-github-square"></i> xCertificate on GitHub</a><br />
+<a href="http://www.powershellgallery.com/packages/xcertificate" target="_blank"><i class="fa fa-windows"></i> xCertificate on PowerShell Gallery</a><br />
+<a href="http://serverfault.com/a/638926/236470" target="_blank"><i class="fa fa-stack-exchange"></i> ServerFault thread that pushed me to publish</a> (thanks in particular to <a href="http://serverfault.com/users/23067/jscott" target="_blank">jscott</a>).</p>
+
+<p>The purpose is to distribute SSL certificates (and optionally the private key) to nodes via PowerShell Desired State Configuration. The PFX is loaded from a network share or file path, and is typically encrypted with a password. DSC Encrypted Credentials are used to store the PFX extraction password securely in the configuration.</p>
+
+<p>My primary use case in writing this concerned distribution of commercially purchased SSL certificates; particularly something like a wildcard cert which needs to be distributed to many nodes and will be need to be updated periodically as renewals happen.</p>
+
+<p>This will also be nice for use with shorter term certificates like <a href="https://letsencrypt.org/2015/11/09/why-90-days.html" target="_blank">90-day certs offered for free by Let’s Encrypt</a>.</p>
+
+<p>The post <a rel="nofollow" href="https://www.briantist.com/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/">xPfxImport DSC Resource for Importing Certificates and Keys</a> first appeared on <a rel="nofollow" href="https://www.briantist.com/">briantist.com</a>.</p>]]></description>
+			</item>
 		
 			<item>
 				<title>How to Prevent PowerShell from Prompting on Mandatory Parameters</title>

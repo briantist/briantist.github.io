@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
 	
 	<url>
+		<loc>https://www.briantist.com/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/</loc>
+		<changefreq>monthly</changefreq>
+		<lastmod>2015-12-03T00:00:00-05:00</lastmod>
+	</url>
+	
+	<url>
 		<loc>https://www.briantist.com/how-to/throw-exception-on-unbound-mandatory-powershell-parameter/</loc>
 		<changefreq>monthly</changefreq>
 		<lastmod>2015-11-08T00:00:00-05:00</lastmod>

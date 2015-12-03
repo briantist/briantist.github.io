@@ -374,6 +374,46 @@
   
   
   
+  <article class="home">
+    <h2><a class="archive_list_article_link" href='/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/'>xPfxImport DSC Resource for Importing Certificates and Keys</a></h2>
+    	 <div class="byline">
+		
+		<time datetime="2015-12-03T00:00:00-05:00"><i class="fa fa-calendar"></i>
+		December 03, 2015
+		 </time>
+		
+		 <span class="comment-count"><i class="fa fa-comment"></i> <a data-disqus-identifier="5d7d0923-255b-4570-86e9-e0719dcc2685" href="/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/#disqus_thread">Comments</a></span>
+		 
+	</div>
+	
+			 
+
+  <div class="post-content">
+    
+<p>I’m very proud to have contributed the <code>xPfxImport</code> DSC Resource to Microsoft’s <code>xCertificate</code> module. This resource is included in version 1.1.0.0 of <code>xCertificate</code> which was released on <time datetime="2015-12-02T22:49:29Z" is="relative-time" title="Dec 2, 2015, 5:49 PM EST">December 2, 2015</time>.</p>
+
+<p><a href="https://github.com/PowerShell/xCertificate/tree/master" target="_blank"><i class="fa fa-github-square"></i> xCertificate on GitHub</a><br />
+<a href="http://www.powershellgallery.com/packages/xcertificate" target="_blank"><i class="fa fa-windows"></i> xCertificate on PowerShell Gallery</a><br />
+<a href="http://serverfault.com/a/638926/236470" target="_blank"><i class="fa fa-stack-exchange"></i> ServerFault thread that pushed me to publish</a> (thanks in particular to <a href="http://serverfault.com/users/23067/jscott" target="_blank">jscott</a>).</p>
+
+<p>The purpose is to distribute SSL certificates (and optionally the private key) to nodes via PowerShell Desired State Configuration. The PFX is loaded from a network share or file path, and is typically encrypted with a password. DSC Encrypted Credentials are used to store the PFX extraction password securely in the configuration.</p>
+
+<p>My primary use case in writing this concerned distribution of commercially purchased SSL certificates; particularly something like a wildcard cert which needs to be distributed to many nodes and will be need to be updated periodically as renewals happen.</p>
+
+<p>This will also be nice for use with shorter term certificates like <a href="https://letsencrypt.org/2015/11/09/why-90-days.html" target="_blank">90-day certs offered for free by Let’s Encrypt</a>.</p>
+
+<a class="read-more" href="/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/#more">Continue Reading &raquo;</a>
+  </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

@@ -541,8 +541,8 @@ param(
             if ($param.Value.Aliases.Where({$_ -imatch &#39;^Required_&#39;})) {
                 if (!$BoundParams[$param.Key]) {
                     if ($SetBreakpoint) {
-                    $stack = Get-PSCallStack | Select-Object -Index 1
-                    Set-PSBreakpoint -Line $stack.ScriptLineNumber -Script $stack.ScriptName | Write-Debug
+                        $stack = Get-PSCallStack | Select-Object -Index 1
+                        Set-PSBreakpoint -Line $stack.ScriptLineNumber -Script $stack.ScriptName | Write-Debug
                     } else {
                         throw [System.ArgumentException]&quot;&#39;$($param.Key)&#39; in command &#39;$($Context.Name)&#39; must be supplied by the caller.&quot;
                     }
@@ -631,7 +631,7 @@ param(
 			 
 				<li>
 					<a href="/tag/powershell/">
-					powershell <span>(12)</span>
+					powershell <span>(13)</span>
 					
 					</a>
 				</li>
@@ -673,7 +673,7 @@ param(
 		  <li class="previous"><a href="/how-to/use-duplicate-dsc-script-resources-in-loop/" title="Use Variables in a DSC Script Resource">&larr; Previous</a></li>
 		  
 		  
-			<li class="next disabled"><a>Next &rarr;</a>
+		  <li class="next"><a href="/project/xpfximport-dsc-resource-for-importing-certificates-and-keys/" title="xPfxImport DSC Resource for Importing Certificates and Keys">Next &rarr;</a></li>
 		  
 		</ul>
 
